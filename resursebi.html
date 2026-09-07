@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>რესურსები — LabourLaw.ge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:   #F7F3EC;
+    --white:   #FFFFFF;
+    --charcoal:#222222;
+    --gold:    #B89A52;
+    --gold-lt: #C9AD6A;
+    --taupe:   #8A7D6A;
+    --border:  #E8E1D6;
+    --dark:    #1C1A17;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--charcoal);overflow-x:hidden;}
+
+  /* ── HEADER ── */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,243,236,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--charcoal);}
+  .logo-text{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:.02em;}
+  nav{display:flex;align-items:center;gap:36px;}
+  nav a{font-size:.875rem;font-weight:400;letter-spacing:.04em;color:var(--charcoal);text-decoration:none;transition:color .2s;position:relative;}
+  nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .25s;}
+  nav a:hover{color:var(--gold);}
+  nav a:hover::after,nav a.active::after{width:100%;}
+  nav a.active{color:var(--gold);}
+  .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-decoration:none;transition:background .25s,transform .15s;}
+  .btn-primary:hover{background:var(--gold-lt);transform:translateY(-1px);}
+
+  /* ── PAGE HERO ── */
+  .page-hero{padding-top:68px;background:var(--charcoal);position:relative;overflow:hidden;}
+  .page-hero-pattern{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px);}
+  .page-hero-inner{max-width:1280px;margin:0 auto;padding:72px 40px 80px;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;align-items:end;gap:40px;}
+  .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+  .breadcrumb a{font-size:.75rem;letter-spacing:.08em;color:rgba(255,255,255,.4);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+  .breadcrumb a:hover{color:var(--gold);}
+  .breadcrumb span{font-size:.75rem;color:rgba(255,255,255,.2);}
+  .breadcrumb-current{font-size:.75rem;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;}
+  .page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:500;color:var(--white);line-height:1.1;margin-bottom:20px;}
+  .page-hero-title em{font-style:italic;color:var(--gold);}
+  .page-hero-desc{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.5);max-width:540px;}
+  .hero-stat{display:inline-block;padding:24px 32px;border:1px solid rgba(184,154,82,.25);background:rgba(184,154,82,.05);}
+  .hero-stat-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--gold);line-height:1;display:block;}
+  .hero-stat-label{font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:6px;display:block;}
+  .hero-gold-line{height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+
+  /* ── RESOURCE NAV TABS ── */
+  .res-nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:68px;z-index:90;}
+  .res-nav-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;gap:0;overflow-x:auto;}
+  .res-nav-inner::-webkit-scrollbar{display:none;}
+  .rnav-item{padding:18px 22px;font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--taupe);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:8px;}
+  .rnav-item:hover{color:var(--charcoal);}
+  .rnav-item.active{color:var(--gold);border-bottom-color:var(--gold);}
+  .rnav-count{font-size:.68rem;background:var(--border);color:var(--taupe);padding:2px 7px;border-radius:10px;transition:all .2s;}
+  .rnav-item.active .rnav-count{background:rgba(184,154,82,.15);color:var(--gold);}
+
+  /* ── MAIN LAYOUT ── */
+  .res-body{max-width:1280px;margin:0 auto;padding:80px 40px;}
+
+  /* ── SECTION HEADING ── */
+  .res-section{margin-bottom:72px;}
+  .res-section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+  .res-section-left{}
+  .res-section-tag{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
+  .res-section-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--charcoal);}
+  .res-section-desc{font-size:.85rem;color:var(--taupe);margin-top:6px;line-height:1.6;}
+  .view-all{font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .2s;flex-shrink:0;}
+  .view-all:hover{gap:12px;}
+
+  /* ── LEGISLATION GRID ── */
+  .leg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);}
+  .leg-card{background:var(--white);padding:28px 32px;display:flex;gap:20px;align-items:flex-start;transition:background .2s;text-decoration:none;color:inherit;}
+  .leg-card:hover{background:var(--ivory);}
+  .leg-icon-wrap{width:48px;height:48px;background:rgba(184,154,82,.08);border:1px solid rgba(184,154,82,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);}
+  .leg-info{}
+  .leg-label{font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .leg-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--charcoal);margin-bottom:6px;line-height:1.3;}
+  .leg-meta{font-size:.76rem;color:var(--taupe);}
+  .leg-arrow{margin-left:auto;color:var(--border);transition:color .2s,transform .2s;flex-shrink:0;margin-top:2px;}
+  .leg-card:hover .leg-arrow{color:var(--gold);transform:translateX(4px);}
+
+  /* ── PRACTICE GRID (Court Decisions) ── */
+  .practice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .practice-card{background:var(--white);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden;transition:all .3s;text-decoration:none;color:inherit;display:block;}
+  .practice-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--border);transition:background .3s;}
+  .practice-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(34,34,34,.07);}
+  .practice-card:hover::before{background:var(--gold);}
+  .pcard-type{font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .pcard-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--charcoal);margin-bottom:10px;line-height:1.35;}
+  .pcard-excerpt{font-size:.83rem;line-height:1.65;color:var(--taupe);margin-bottom:16px;}
+  .pcard-meta{display:flex;align-items:center;gap:16px;}
+  .pcard-court{font-size:.75rem;color:var(--taupe);display:flex;align-items:center;gap:6px;}
+  .pcard-court::before{content:'⚖';font-size:.7rem;}
+  .pcard-date{font-size:.75rem;color:var(--taupe);}
+  .pcard-date::before{content:'·';margin-right:4px;}
+
+  /* ── PUBLICATIONS (Tabs) ── */
+  .pub-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--border);}
+  .pub-tab{padding:12px 20px;font-size:.8rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--taupe);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;margin-bottom:-1px;}
+  .pub-tab:hover{color:var(--charcoal);}
+  .pub-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+  .pub-content{display:none;}
+  .pub-content.active{display:block;}
+  .pub-list{display:flex;flex-direction:column;gap:0;}
+  .pub-item{display:flex;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:all .2s;}
+  .pub-item:last-child{border-bottom:none;}
+  .pub-item:hover .pub-item-title{color:var(--gold);}
+  .pub-item-icon{width:44px;height:44px;background:rgba(184,154,82,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:1.1rem;transition:background .2s;}
+  .pub-item:hover .pub-item-icon{background:rgba(184,154,82,.12);}
+  .pub-item-body{flex:1;}
+  .pub-item-cat{font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--taupe);margin-bottom:5px;}
+  .pub-item-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--charcoal);line-height:1.3;transition:color .2s;}
+  .pub-item-meta{font-size:.74rem;color:var(--taupe);margin-top:4px;}
+  .pub-item-badge{padding:5px 12px;font-size:.68rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0;}
+  .badge-free{background:rgba(184,154,82,.1);color:var(--gold);border:1px solid rgba(184,154,82,.2);}
+  .badge-download{background:var(--gold);color:var(--white);}
+  .pub-item-arrow{color:var(--border);transition:color .2s,transform .2s;flex-shrink:0;}
+  .pub-item:hover .pub-item-arrow{color:var(--gold);transform:translateX(4px);}
+
+  /* ── TEMPLATES ── */
+  .templates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .template-card{background:var(--white);border:1px solid var(--border);padding:28px;display:flex;flex-direction:column;gap:16px;transition:all .3s;position:relative;overflow:hidden;}
+  .template-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:left;}
+  .template-card:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(34,34,34,.07);}
+  .template-card:hover::after{transform:scaleX(1);}
+  .tmpl-icon{width:40px;height:40px;color:var(--gold);}
+  .tmpl-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--charcoal);line-height:1.3;}
+  .tmpl-desc{font-size:.82rem;line-height:1.6;color:var(--taupe);flex:1;}
+  .tmpl-footer{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border);}
+  .tmpl-format{font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--taupe);}
+  .tmpl-download{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:500;letter-spacing:.04em;color:var(--gold);text-decoration:none;transition:gap .2s;}
+  .tmpl-download:hover{gap:10px;}
+
+  /* ── GLOSSARY / TERMS ── */
+  .glossary-search{position:relative;margin-bottom:32px;}
+  .glossary-input{width:100%;padding:16px 52px 16px 20px;border:1.5px solid var(--border);background:var(--white);font-family:'Jost',sans-serif;font-size:.9rem;color:var(--charcoal);outline:none;transition:border-color .2s;}
+  .glossary-input:focus{border-color:var(--gold);}
+  .glossary-input::placeholder{color:var(--taupe);}
+  .glossary-search-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--taupe);}
+  .alpha-filter{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:32px;}
+  .alpha-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;color:var(--taupe);border:1px solid var(--border);background:var(--white);cursor:pointer;transition:all .2s;}
+  .alpha-btn:hover,.alpha-btn.active{background:var(--gold);color:var(--white);border-color:var(--gold);}
+  .glossary-list{display:flex;flex-direction:column;gap:0;}
+  .glossary-group{}
+  .glossary-letter{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--gold);padding:20px 0 12px;border-bottom:1px solid var(--border);margin-bottom:0;line-height:1;}
+  .glossary-term{padding:18px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+  .glossary-term:last-child{border-bottom:none;}
+  .term-header{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .term-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--charcoal);transition:color .2s;}
+  .glossary-term:hover .term-name{color:var(--gold);}
+  .term-toggle{color:var(--taupe);transition:transform .3s;flex-shrink:0;}
+  .term-def{font-size:.875rem;line-height:1.7;color:var(--taupe);max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding-top:0;}
+  .glossary-term.open .term-def{max-height:300px;padding-top:12px;}
+  .glossary-term.open .term-toggle{transform:rotate(180deg);}
+
+  /* ── INSPECTION SECTION ── */
+  .inspection-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  .insp-card{background:var(--white);border:1px solid var(--border);padding:32px;}
+  .insp-card-dark{background:var(--charcoal);}
+  .insp-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--charcoal);margin-bottom:16px;}
+  .insp-card-dark .insp-title{color:var(--white);}
+  .insp-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .insp-list li{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;line-height:1.5;color:var(--taupe);}
+  .insp-card-dark .insp-list li{color:rgba(255,255,255,.55);}
+  .insp-list li::before{content:'›';color:var(--gold);font-size:1rem;flex-shrink:0;margin-top:-1px;}
+  .fine-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+  .fine-item{padding:14px 16px;background:rgba(184,154,82,.06);border:1px solid rgba(184,154,82,.15);}
+  .fine-amount{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--gold);display:block;}
+  .fine-label{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:3px;}
+
+  /* ── CTA BANNER ── */
+  .cta-banner{background:linear-gradient(135deg,var(--charcoal) 0%,#2C2A25 100%);padding:80px 40px;position:relative;overflow:hidden;}
+  .cta-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23B89A52' fill-opacity='0.04'%3E%3Cpath d='M40 40L0 0v80l40-40zm0 0l40 40V0L40 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+  .cta-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;z-index:2;}
+  .cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:500;color:var(--white);margin-bottom:10px;}
+  .cta-desc{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.6;}
+  .btn-gold{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.875rem;font-weight:500;letter-spacing:.06em;text-decoration:none;transition:all .25s;flex-shrink:0;white-space:nowrap;}
+  .btn-gold:hover{background:var(--gold-lt);transform:translateY(-1px);}
+
+  /* ── FOOTER ── */
+  footer{background:var(--dark);color:rgba(255,255,255,.7);padding:72px 40px 32px;}
+  .footer-inner{max-width:1280px;margin:0 auto;}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1.5fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px;}
+  .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;color:var(--white);text-decoration:none;}
+  .footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;}
+  .footer-tagline{font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.4);margin-bottom:24px;}
+  .footer-social{display:flex;gap:12px;}
+  .social-link{width:36px;height:36px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;font-size:.8rem;transition:all .2s;}
+  .social-link:hover{border-color:var(--gold);color:var(--gold);}
+  .footer-col-title{font-size:.72rem;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+  .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .footer-links a{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-links a:hover{color:var(--gold);}
+  .footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;}
+  .footer-contact-item svg{width:16px;height:16px;color:var(--gold);margin-top:2px;flex-shrink:0;}
+  .footer-contact-item a,.footer-contact-item span{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-contact-item a:hover{color:var(--gold);}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;}
+  .footer-copy{font-size:.76rem;color:rgba(255,255,255,.3);}
+  .footer-credit{font-size:.76rem;color:rgba(255,255,255,.2);letter-spacing:.06em;}
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .page-hero-inner{animation:fadeUp .7s ease both;}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1024px){
+    .leg-grid{grid-template-columns:repeat(2,1fr);}
+    .templates-grid{grid-template-columns:repeat(2,1fr);}
+    .practice-grid{grid-template-columns:1fr;}
+    .inspection-layout{grid-template-columns:1fr;}
+    .footer-top{grid-template-columns:1fr 1fr;}
+    .page-hero-inner{grid-template-columns:1fr;}
+  }
+  @media(max-width:768px){
+    .header-inner{padding:0 20px;}
+    nav{display:none;}
+    .res-body{padding:48px 20px;}
+    .leg-grid{grid-template-columns:1fr;}
+    .templates-grid{grid-template-columns:1fr;}
+    .fine-grid{grid-template-columns:1fr;}
+    .cta-inner{flex-direction:column;text-align:center;}
+    .footer-top{grid-template-columns:1fr;gap:32px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/>
+        <rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/>
+        <path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/>
+        <rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/>
+      </svg>
+      <span class="logo-text">LabourLaw.ge</span>
+    </a>
+        <nav>
+      <a href="index.html">მთავარი</a>
+      <a href="momsakhureba.html">მომსახურება</a>
+      <a href="blogi.html">ბლოგი</a>
+      <a href="resursebi.html" class="active">რესურსები</a>
+      <a href="chems-shesakheb.html">ჩემს შესახებ</a>
+      <a href="kontaqti.html">კონტაქტი</a>
+    </nav>
+    <a href="kontaqti.html" class="btn-primary">კონსულტაცია</a>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-pattern"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="index.html">მთავარი</a>
+        <span>/</span>
+        <span class="breadcrumb-current">რესურსები</span>
+      </div>
+      <h1 class="page-hero-title">
+        შრომის სამართლის<br>
+        <em>საცნობარო ბაზა</em>
+      </h1>
+      <p class="page-hero-desc">კანონმდებლობა, სასამართლო პრაქტიკა, ნიმუშები და განმარტებები — ერთ ადგილას, ქართულ ენაზე, ყველასთვის ხელმისაწვდომი.</p>
+    </div>
+    <div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">50+</span>
+        <span class="hero-stat-label">რესურსი ბაზაში</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-gold-line"></div>
+</section>
+
+<!-- RESOURCE NAV TABS -->
+<nav class="res-nav">
+  <div class="res-nav-inner">
+    <a href="#legislation" class="rnav-item active">კანონმდებლობა <span class="rnav-count">8</span></a>
+    <a href="#practice" class="rnav-item">სასამართლო პრაქტიკა <span class="rnav-count">6</span></a>
+    <a href="#publications" class="rnav-item">პუბლიკაციები <span class="rnav-count">12</span></a>
+    <a href="#templates" class="rnav-item">ნიმუშები <span class="rnav-count">6</span></a>
+    <a href="#glossary" class="rnav-item">განმარტებები</a>
+    <a href="#inspection" class="rnav-item">შრომის ინსპექცია</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="res-body">
+
+  <!-- 1. ᲙᲐᲜᲝᲜᲛᲓᲔᲑᲚᲝᲑᲐ -->
+  <section class="res-section" id="legislation">
+    <div class="res-section-head">
+      <div class="res-section-left">
+        <span class="res-section-tag">სამართლებრივი ბაზა</span>
+        <h2 class="res-section-title">კანონმდებლობა</h2>
+        <p class="res-section-desc">ძირითადი კანონები, დირექტივები და კონვენციები — განახლებული ვერსიებით</p>
+      </div>
+      <a href="#" class="view-all">ყველა ნახვა →</a>
+    </div>
+    <div class="leg-grid">
+
+      <a href="#" class="leg-card">
+        <div class="leg-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="leg-info">
+          <div class="leg-label">კანონი</div>
+          <div class="leg-title">საქართველოს შრომის კოდექსი</div>
+          <div class="leg-meta">განახლებული · 2023 · სსმ</div>
+        </div>
+        <svg class="leg-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+
+      <a href="#" class="leg-card">
+        <div class="leg-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="leg-info">
+          <div class="leg-label">კანონი</div>
+          <div class="leg-title">შრომის უსაფრთხოების შესახებ კანონი</div>
+          <div class="leg-meta">განახლებული · 2022 · სსმ</div>
+        </div>
+        <svg class="leg-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+
+      <a href="#" class="leg-card">
+        <div class="leg-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="leg-info">
+          <div class="leg-label">EU დირექტივა</div>
+          <div class="leg-title">სამუშაო დროის შესახებ EU დირექტივა</div>
+          <div class="leg-meta">2003/88/EC · ევროკავშირი</div>
+        </div>
+        <svg class="leg-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+
+      <a href="#" class="leg-card">
+        <div class="leg-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div class="leg-info">
+          <div class="leg-label">ILO კონვენცია</div>
+          <div class="leg-title">ILO No. 158 — გათავისუფლება დამსაქმებლის ინიციატივით</div>
+          <div class="leg-meta">ILO · 1982 · რატიფიცირებული</div>
+        </div>
+        <svg class="leg-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+
+      <a href="#" class="leg-card">
+        <div class="leg-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div class="leg-info">
+          <div class="leg-label">ILO კონვენცია</div>
+          <div class="leg-title">ILO No. 95 — ხელფასის დაცვა</div>
+          <div class="leg-meta">ILO · 1949 · ძირითადი</div>
+        </div>
+        <svg class="leg-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+
+      <a href="#" class="leg-card">
+        <div class="leg-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="leg-info">
+          <div class="leg-label">ტექნიკური რეგლამენტი</div>
+          <div class="leg-title">სამუშაო ადგილის უსაფრთხოების ნორმები</div>
+          <div class="leg-meta">საქართველოს მთავრობა · 2021</div>
+        </div>
+        <svg class="leg-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- 2. სასამართლო პრაქტიკა -->
+  <section class="res-section" id="practice">
+    <div class="res-section-head">
+      <div class="res-section-left">
+        <span class="res-section-tag">სასამართლო გამოცდილება</span>
+        <h2 class="res-section-title">სასამართლო პრაქტიკა</h2>
+        <p class="res-section-desc">მნიშვნელოვანი გადაწყვეტილებები, რომლებიც შრომის სამართალს აყალიბებს</p>
+      </div>
+      <a href="#" class="view-all">ყველა ნახვა →</a>
+    </div>
+    <div class="practice-grid">
+
+      <a href="#" class="practice-card">
+        <div class="pcard-type">უზენაესი სასამართლო</div>
+        <h3 class="pcard-title">უკანონო გათავისუფლება — კომპენსაციის გაანგარიშების სტანდარტი</h3>
+        <p class="pcard-excerpt">სასამართლომ განსაზღვრა, რომ კომპენსაციის ოდენობა უნდა მოიცავდეს მორალური ზიანის ანაზღაურებასაც, გარდა პირდაპირი ქონებრივი ზარალისა.</p>
+        <div class="pcard-meta">
+          <span class="pcard-court">უზენაესი სასამართლო</span>
+          <span class="pcard-date">2023</span>
+        </div>
+      </a>
+
+      <a href="#" class="practice-card">
+        <div class="pcard-type">სააპელაციო სასამართლო</div>
+        <h3 class="pcard-title">გამოსაცდელი ვადა — გათავისუფლების შეზღუდვები</h3>
+        <p class="pcard-excerpt">სასამართლომ დაადასტურა, რომ გამოსაცდელი ვადის დროს გათავისუფლება ასევე საჭიროებს სათანადო დასაბუთებას და წინასწარ შეტყობინებას.</p>
+        <div class="pcard-meta">
+          <span class="pcard-court">სააპელაციო სასამართლო</span>
+          <span class="pcard-date">2022</span>
+        </div>
+      </a>
+
+      <a href="#" class="practice-card">
+        <div class="pcard-type">საკონსტიტუციო სასამართლო</div>
+        <h3 class="pcard-title">სამუშაო დრო — ზეგანაკვეთური ანაზღაურება კონსტიტუციურ ჭრილში</h3>
+        <p class="pcard-excerpt">საკონსტიტუციო სასამართლომ განმარტა, რომ ზეგანაკვეთური სამუშაოს სავალდებულო ანაზღაურება კონსტიტუციური გარანტიაა.</p>
+        <div class="pcard-meta">
+          <span class="pcard-court">საკონსტიტუციო სასამართლო</span>
+          <span class="pcard-date">2022</span>
+        </div>
+      </a>
+
+      <a href="#" class="practice-card">
+        <div class="pcard-type">უზენაესი სასამართლო</div>
+        <h3 class="pcard-title">NDA ხელშეკრულების ბოჭვითი ძალა — მოქმედების ფარგლები</h3>
+        <p class="pcard-excerpt">გადაწყვეტილებამ განსაზღვრა, რომ კონფიდენციალურობის შეთანხმებები არ შეიძლება გამოყენებულ იქნეს დასაქმებულის ძირეული უფლებების შეზღუდვისთვის.</p>
+        <div class="pcard-meta">
+          <span class="pcard-court">უზენაესი სასამართლო</span>
+          <span class="pcard-date">2021</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- 3. პუბლიკაციები -->
+  <section class="res-section" id="publications">
+    <div class="res-section-head">
+      <div class="res-section-left">
+        <span class="res-section-tag">კვლევები და ანგარიშები</span>
+        <h2 class="res-section-title">პუბლიკაციები</h2>
+        <p class="res-section-desc">სტატიები, კვლევები, ანგარიშები და წიგნები შრომის სამართლის სფეროში</p>
+      </div>
+    </div>
+
+    <div class="pub-tabs">
+      <div class="pub-tab active" onclick="switchTab(this,'tab-articles')">სტატიები</div>
+      <div class="pub-tab" onclick="switchTab(this,'tab-research')">კვლევები</div>
+      <div class="pub-tab" onclick="switchTab(this,'tab-reports')">ანგარიშები</div>
+      <div class="pub-tab" onclick="switchTab(this,'tab-books')">წიგნები</div>
+    </div>
+
+    <div class="pub-content active" id="tab-articles">
+      <div class="pub-list">
+        <a href="#" class="pub-item">
+          <div class="pub-item-icon">📄</div>
+          <div class="pub-item-body">
+            <div class="pub-item-cat">სამართლებრივი ანალიზი</div>
+            <div class="pub-item-title">შრომის სამართლის რეფორმები საქართველოში: 2020–2024</div>
+            <div class="pub-item-meta">ნ. ნათენაძე · 2024 · 24 გვ.</div>
+          </div>
+          <span class="pub-item-badge badge-free">უფასო</span>
+          <svg class="pub-item-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+        <a href="#" class="pub-item">
+          <div class="pub-item-icon">📄</div>
+          <div class="pub-item-body">
+            <div class="pub-item-cat">პრაქტიკული სახელმძღვანელო</div>
+            <div class="pub-item-title">დამსაქმებელთა სამართლებრივი ვალდებულებები: სრული გზამკვლევი</div>
+            <div class="pub-item-meta">ნ. ნათენაძე · 2023 · 18 გვ.</div>
+          </div>
+          <span class="pub-item-badge badge-download">გადმოწერა</span>
+          <svg class="pub-item-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+        <a href="#" class="pub-item">
+          <div class="pub-item-icon">📄</div>
+          <div class="pub-item-body">
+            <div class="pub-item-cat">სამართლებრივი მიმოხილვა</div>
+            <div class="pub-item-title">შრომის ინსპექციის უფლებამოსილება — ახალი მიდგომები</div>
+            <div class="pub-item-meta">ნ. ნათენაძე · 2023 · 12 გვ.</div>
+          </div>
+          <span class="pub-item-badge badge-free">უფასო</span>
+          <svg class="pub-item-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="pub-content" id="tab-research">
+      <div class="pub-list">
+        <a href="#" class="pub-item">
+          <div class="pub-item-icon">🔬</div>
+          <div class="pub-item-body">
+            <div class="pub-item-cat">კვლევა</div>
+            <div class="pub-item-title">შრომითი დავების სტატისტიკა საქართველოში: 2018–2023</div>
+            <div class="pub-item-meta">2024 · 48 გვ. · PDF</div>
+          </div>
+          <span class="pub-item-badge badge-download">გადმოწერა</span>
+          <svg class="pub-item-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+        <a href="#" class="pub-item">
+          <div class="pub-item-icon">🔬</div>
+          <div class="pub-item-body">
+            <div class="pub-item-cat">შედარებითი კვლევა</div>
+            <div class="pub-item-title">ევროპული შრომის სტანდარტები და ქართული კანონმდებლობა</div>
+            <div class="pub-item-meta">2023 · 62 გვ. · PDF</div>
+          </div>
+          <span class="pub-item-badge badge-free">უფასო</span>
+          <svg class="pub-item-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="pub-content" id="tab-reports">
+      <div class="pub-list">
+        <a href="#" class="pub-item">
+          <div class="pub-item-icon">📊</div>
+          <div class="pub-item-body">
+            <div class="pub-item-cat">წლიური ანგარიში</div>
+            <div class="pub-item-title">შრომის ინსპექციის 2023 წლის ანგარიში</div>
+            <div class="pub-item-meta">შრომის ინსპექცია · 2024 · 80 გვ.</div>
+          </div>
+          <span class="pub-item-badge badge-free">უფასო</span>
+          <svg class="pub-item-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="pub-content" id="tab-books">
+      <div class="pub-list">
+        <a href="#" class="pub-item">
+          <div class="pub-item-icon">📚</div>
+          <div class="pub-item-body">
+            <div class="pub-item-cat">სახელმძღვანელო</div>
+            <div class="pub-item-title">შრომის სამართალი საქართველოში — სრული სახელმძღვანელო</div>
+            <div class="pub-item-meta">ნ. ნათენაძე · 2022 · 320 გვ.</div>
+          </div>
+          <span class="pub-item-badge badge-download">შეძენა</span>
+          <svg class="pub-item-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. ნიმუშები -->
+  <section class="res-section" id="templates">
+    <div class="res-section-head">
+      <div class="res-section-left">
+        <span class="res-section-tag">გადმოსაწერი დოკუმენტები</span>
+        <h2 class="res-section-title">ნიმუშები</h2>
+        <p class="res-section-desc">პროფესიულად შედგენილი შაბლონები — შევსება და გამოყენება</p>
+      </div>
+    </div>
+    <div class="templates-grid">
+
+      <div class="template-card">
+        <svg class="tmpl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <div class="tmpl-name">შრომითი ხელშეკრულების ნიმუში</div>
+        <div class="tmpl-desc">სტანდარტული შრომითი ხელშეკრულება — ყველა სავალდებულო პუნქტით, ორ ენაზე.</div>
+        <div class="tmpl-footer">
+          <span class="tmpl-format">DOCX · Word</span>
+          <a href="#" class="tmpl-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            გადმოწერა
+          </a>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <svg class="tmpl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div class="tmpl-name">გაფრთხილების წერილი</div>
+        <div class="tmpl-desc">დისციპლინური სანქციის გამოყენებამდე გაფრთხილების ოფიციალური ფორმა.</div>
+        <div class="tmpl-footer">
+          <span class="tmpl-format">DOCX · Word</span>
+          <a href="#" class="tmpl-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            გადმოწერა
+          </a>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <svg class="tmpl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <div class="tmpl-name">თანხმობის ფორმა (NDA)</div>
+        <div class="tmpl-desc">კონფიდენციალურობის შეთანხმება — კანონიერ ჩარჩოში, ბალანსირებული პირობებით.</div>
+        <div class="tmpl-footer">
+          <span class="tmpl-format">DOCX · Word</span>
+          <a href="#" class="tmpl-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            გადმოწერა
+          </a>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <svg class="tmpl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <div class="tmpl-name">შიდა რეგლამენტის ჩარჩო</div>
+        <div class="tmpl-desc">კომპანიის შიდა წესების სრული სტრუქტურა — HR-ისთვის მზა შაბლონი.</div>
+        <div class="tmpl-footer">
+          <span class="tmpl-format">DOCX · Word</span>
+          <a href="#" class="tmpl-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            გადმოწერა
+          </a>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <svg class="tmpl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <div class="tmpl-name">გათავისუფლების სარჩელი</div>
+        <div class="tmpl-desc">უკანონო გათავისუფლების გასაჩივრების სასამართლო სარჩელის ნიმუში.</div>
+        <div class="tmpl-footer">
+          <span class="tmpl-format">DOCX · Word</span>
+          <a href="#" class="tmpl-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            გადმოწერა
+          </a>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <svg class="tmpl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="tmpl-name">კითხვარი — შრომის ინსპექციისთვის</div>
+        <div class="tmpl-desc">კომპანიის მომზადება შრომის ინსპექციის შემოწმებამდე — სრული ჩეკლისტი.</div>
+        <div class="tmpl-footer">
+          <span class="tmpl-format">PDF</span>
+          <a href="#" class="tmpl-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            გადმოწერა
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. განმარტებები -->
+  <section class="res-section" id="glossary">
+    <div class="res-section-head">
+      <div class="res-section-left">
+        <span class="res-section-tag">სამართლებრივი ლექსიკონი</span>
+        <h2 class="res-section-title">განმარტებები</h2>
+        <p class="res-section-desc">შრომის სამართლის ძირითადი ტერმინები — მარტივ ენაზე</p>
+      </div>
+    </div>
+
+    <div class="glossary-search">
+      <input class="glossary-input" type="text" placeholder="ტერმინის ძებნა..." id="glossarySearch" oninput="searchGlossary(this.value)">
+      <svg class="glossary-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </div>
+
+    <div class="alpha-filter">
+      <button class="alpha-btn active" onclick="filterAlpha(this,'all')">ყველა</button>
+      <button class="alpha-btn" onclick="filterAlpha(this,'გ')">გ</button>
+      <button class="alpha-btn" onclick="filterAlpha(this,'დ')">დ</button>
+      <button class="alpha-btn" onclick="filterAlpha(this,'კ')">კ</button>
+      <button class="alpha-btn" onclick="filterAlpha(this,'მ')">მ</button>
+      <button class="alpha-btn" onclick="filterAlpha(this,'შ')">შ</button>
+      <button class="alpha-btn" onclick="filterAlpha(this,'ხ')">ხ</button>
+      <button class="alpha-btn" onclick="filterAlpha(this,'ზ')">ზ</button>
+    </div>
+
+    <div class="glossary-list" id="glossaryList">
+
+      <div class="glossary-group" data-letter="დ">
+        <div class="glossary-letter">დ</div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">დასაქმებული</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">პირი, რომელიც სხვა პირის (დამსაქმებლის) სასარგებლოდ, მისი დავალებითა და კონტროლის ქვეშ ასრულებს სამუშაოს ანაზღაურების სანაცვლოდ. ითვლება კანონით დაცულ სუბიექტად.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">დამსაქმებელი</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">ფიზიკური ან იურიდიული პირი, რომელიც ასაქმებს ერთ ან მეტ პირს, სამუშაოს სანაცვლოდ ხელფასს ან სხვა ანაზღაურებას უხდის.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">დისკრიმინაცია სამუშაო ადგილზე</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">სამუშაო ადგილზე დასაქმებულის მიმართ არახელსაყრელი მოპყრობა რასის, სქესის, ასაკის, შეზღუდული შესაძლებლობის, რელიგიის ან სხვა დაცული ნიშნის საფუძველზე.</div>
+        </div>
+      </div>
+
+      <div class="glossary-group" data-letter="გ">
+        <div class="glossary-letter">გ</div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">გათავისუფლება</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">შრომითი ხელშეკრულების შეწყვეტა — შეიძლება იყოს: მხარეთა შეთანხმებით, ვადის გასვლით, ინიციატივით (ნებაყოფლობით) ან სასამართლოს გადაწყვეტილებით.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">გამოსაცდელი ვადა</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">შრომითი ხელშეკრულებით გათვალისწინებული პერიოდი, რომლის დროსაც დამსაქმებელი და დასაქმებული ამოწმებენ ურთიერთობის შესაბამისობას. არ შეიძლება 6 თვეს გადააჭარბოს.</div>
+        </div>
+      </div>
+
+      <div class="glossary-group" data-letter="კ">
+        <div class="glossary-letter">კ</div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">კოლექტიური შეთანხმება</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">სამართლებრივი ხელშეკრულება პროფკავშირსა (ან მუშათა წარმომადგენლებს) და დამსაქმებელს შორის, რომელიც სამუშაო პირობებს, ხელფასებსა და სხვა საკითხებს არეგულირებს.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">კომპენსაცია</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">უკანონო გათავისუფლების ან სამართლებრივი ვალდებულების დარღვევის შედეგად მიყენებული ზარალის ანაზღაურება ფულადი სახით.</div>
+        </div>
+      </div>
+
+      <div class="glossary-group" data-letter="მ">
+        <div class="glossary-letter">მ</div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">მედიაცია</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">მხარეთა ნებაყოფლობითი, კონფიდენციალური მოლაპარაკების პროცესი ნეიტრალური შუამავლის (მედიატორის) მონაწილეობით — სასამართლო პროცესის ალტერნატივა.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">მინიმალური ხელფასი</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">სახელმწიფოს მიერ დადგენილი ყველაზე დაბალი ანაზღაურება, რომლის ქვემოთ დამსაქმებელს არ შეუძლია ხელფასის განსაზღვრა.</div>
+        </div>
+      </div>
+
+      <div class="glossary-group" data-letter="შ">
+        <div class="glossary-letter">შ</div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">შრომის ინსპექცია</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">სახელმწიფო ინსტიტუცია, რომელიც ამოწმებს შრომის კანონმდებლობის დაცვას, ატარებს ინსპექტირებას კომპანიებში და ახდენს სანქციების დაკისრებას.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">შვებულება</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">კანონით გარანტირებული დასვენების პერიოდი — ანაზღაურებადი (24 სამუშაო დღე წელიწადში) ან ანაზღაურების გარეშე. დამსაქმებელს არ შეუძლია ამ უფლების შეზღუდვა.</div>
+        </div>
+      </div>
+
+      <div class="glossary-group" data-letter="ზ">
+        <div class="glossary-letter">ზ</div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">ზეგანაკვეთური სამუშაო</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">კანონით განსაზღვრულ სამუშაო დროს (40 სთ/კვ) გადამეტებული სამუშაო. სავალდებულოდ ანაზღაურდება — ჩვეულებრივი ანაზღაურების მინიმუმ 1.5-ჯერ მეტი ოდენობით.</div>
+        </div>
+      </div>
+
+      <div class="glossary-group" data-letter="ხ">
+        <div class="glossary-letter">ხ</div>
+        <div class="glossary-term" onclick="toggleTerm(this)">
+          <div class="term-header">
+            <span class="term-name">ხელფასის დავალიანება</span>
+            <svg class="term-toggle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="term-def">ხელფასის განსაზღვრულ ვადაში გადაუხდელობა — კანონის დარღვევაა. დასაქმებულს უფლება აქვს მოითხოვოს გადახდა, პროცენტი და, სასამართლოს გზით, კომპენსაცია.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. შრომის ინსპექცია -->
+  <section class="res-section" id="inspection">
+    <div class="res-section-head">
+      <div class="res-section-left">
+        <span class="res-section-tag">მარეგულირებელი ორგანო</span>
+        <h2 class="res-section-title">შრომის ინსპექცია</h2>
+        <p class="res-section-desc">რას ამოწმებს, ვის შეუძლია მიმართოს და რა ჯარიმები შეიძლება დაწესდეს</p>
+      </div>
+    </div>
+    <div class="inspection-layout">
+      <div class="insp-card">
+        <div class="insp-title">კომპანიამ რა უნდა იცოდეს</div>
+        <ul class="insp-list">
+          <li>ინსპექციას შეუძლია შემოსვლა შეტყობინების გარეშე</li>
+          <li>ამოწმებს შრომითი ხელშეკრულებების არსებობას</li>
+          <li>ამოწმებს სამუშაო დროის აღრიცხვას</li>
+          <li>ამოწმებს შრომის უსაფრთხოების ნორმებს</li>
+          <li>ამოწმებს ხელფასის გადახდის ჩანაწერებს</li>
+          <li>ამოწმებს ბავშვური შრომის არარსებობას</li>
+          <li>შეუძლია ჯარიმა მყისიერად დააკისროს</li>
+        </ul>
+      </div>
+      <div class="insp-card insp-card-dark">
+        <div class="insp-title">ჯარიმების ოდენობა</div>
+        <ul class="insp-list">
+          <li>ხელშეკრულების გარეშე დასაქმება</li>
+          <li>ზეგანაკვეთურის გადაუხდელობა</li>
+          <li>უსაფრთხოების ნორმების დარღვევა</li>
+          <li>ყოველ განმეორებაზე ჯარიმა იზრდება</li>
+        </ul>
+        <div class="fine-grid">
+          <div class="fine-item">
+            <span class="fine-amount">500₾</span>
+            <div class="fine-label">პირველადი დარღვევა</div>
+          </div>
+          <div class="fine-item">
+            <span class="fine-amount">1,000₾</span>
+            <div class="fine-label">განმეორებადი</div>
+          </div>
+          <div class="fine-item">
+            <span class="fine-amount">2,000₾</span>
+            <div class="fine-label">მძიმე დარღვევა</div>
+          </div>
+          <div class="fine-item">
+            <span class="fine-amount">5,000₾+</span>
+            <div class="fine-label">სისტემური</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /res-body -->
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact">
+  <div class="cta-inner">
+    <div>
+      <h2 class="cta-title">გჭირდებათ კონკრეტული სამართლებრივი დახმარება?</h2>
+      <p class="cta-desc">რესურსები ინფორმაციის მისაღებადაა — მაგრამ თქვენი სიტუაცია ინდივიდუალური კონსულტაციას საჭიროებს.</p>
+    </div>
+    <a href="kontaqti.html" class="btn-gold">დამიკავშირდით →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/><rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/><path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/><rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/></svg>
+          <span class="footer-logo-text">LabourLaw.ge</span>
+        </a>
+        <p class="footer-tagline">შრომის სამართლის სფეროში პროფესიონალური იურიდიული მხარდაჭერა ფიზიკური პირებისა და კომპანიებისათვის.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">✓</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">მომსახურება</div>
+        <ul class="footer-links">
+          <li><a href="momsakhureba.html#s1">შრომითი დავები</a></li>
+          <li><a href="momsakhureba.html#s2">ხელშეკრულებები</a></li>
+          <li><a href="momsakhureba.html#s3">კონსულტაცია</a></li>
+          <li><a href="momsakhureba.html#s4">სასამართლო</a></li>
+          <li><a href="momsakhureba.html#s5">HR სამართალი</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">რესურსები</div>
+        <ul class="footer-links">
+          <li><a href="#legislation">კანონმდებლობა</a></li>
+          <li><a href="#practice">სასამართლო პრაქტიკა</a></li>
+          <li><a href="#publications">პუბლიკაციები</a></li>
+          <li><a href="#templates">ნიმუშები</a></li>
+          <li><a href="#glossary">განმარტებები</a></li>
+          <li><a href="#inspection">შრომის ინსპექცია</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">კონტაქტი</div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.12 2.38 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <a href="tel:+995555123456">+995 555 123 456</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:info@labourlaw.ge">info@labourlaw.ge</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>თბილისი, საქართველო</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">ნავიგაცია</div>
+        <ul class="footer-links">
+          <li><a href="index.html">მთავარი</a></li>
+          <li><a href="blogi.html">ბლოგი</a></li>
+          <li><a href="chems-shesakheb.html">ჩემს შესახებ</a></li>
+          <li><a href="kontaqti.html">კონტაქტი</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 LabourLaw.ge. ყველა უფლება დაცულია.</span>
+      <span class="footer-credit">WEB DEVELOPMENT BY YOUR STUDIO</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tabs for publications
+  function switchTab(btn, tabId) {
+    document.querySelectorAll('.pub-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pub-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  // Glossary accordion
+  function toggleTerm(el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.glossary-term.open').forEach(t => t.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  // Glossary search
+  function searchGlossary(q) {
+    const val = q.toLowerCase();
+    document.querySelectorAll('.glossary-term').forEach(term => {
+      const name = term.querySelector('.term-name').textContent.toLowerCase();
+      const def = term.querySelector('.term-def').textContent.toLowerCase();
+      term.style.display = (name.includes(val) || def.includes(val)) ? '' : 'none';
+    });
+    document.querySelectorAll('.glossary-group').forEach(group => {
+      const visible = [...group.querySelectorAll('.glossary-term')].some(t => t.style.display !== 'none');
+      group.style.display = visible ? '' : 'none';
+    });
+  }
+
+  // Alpha filter
+  function filterAlpha(btn, letter) {
+    document.querySelectorAll('.alpha-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('glossarySearch').value = '';
+    document.querySelectorAll('.glossary-group').forEach(g => {
+      g.style.display = (letter === 'all' || g.dataset.letter === letter) ? '' : 'none';
+    });
+    document.querySelectorAll('.glossary-term').forEach(t => t.style.display = '');
+  }
+
+  // Sticky nav active on scroll
+  const sections = ['legislation','practice','publications','templates','glossary','inspection'];
+  const navItems = document.querySelectorAll('.rnav-item');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => {
+          n.classList.remove('active');
+          if (n.getAttribute('href') === '#' + e.target.id) n.classList.add('active');
+        });
+      }
+    });
+  }, { threshold: 0.25, rootMargin: '-80px 0px 0px 0px' });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ბლოგი — LabourLaw.ge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:   #F7F3EC;
+    --white:   #FFFFFF;
+    --charcoal:#222222;
+    --gold:    #B89A52;
+    --gold-lt: #C9AD6A;
+    --taupe:   #8A7D6A;
+    --border:  #E8E1D6;
+    --dark:    #1C1A17;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--charcoal);overflow-x:hidden;}
+
+  /* ── HEADER ── */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,243,236,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--charcoal);}
+  .logo-text{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:.02em;}
+  nav{display:flex;align-items:center;gap:36px;}
+  nav a{font-size:.875rem;font-weight:400;letter-spacing:.04em;color:var(--charcoal);text-decoration:none;transition:color .2s;position:relative;}
+  nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .25s;}
+  nav a:hover{color:var(--gold);}
+  nav a:hover::after,nav a.active::after{width:100%;}
+  nav a.active{color:var(--gold);}
+  .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-decoration:none;transition:background .25s,transform .15s;}
+  .btn-primary:hover{background:var(--gold-lt);transform:translateY(-1px);}
+
+  /* ── PAGE HERO ── */
+  .page-hero{padding-top:68px;background:var(--charcoal);position:relative;overflow:hidden;}
+  .page-hero-pattern{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px);}
+  .page-hero-inner{max-width:1280px;margin:0 auto;padding:72px 40px 80px;position:relative;z-index:2;}
+  .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+  .breadcrumb a{font-size:.75rem;letter-spacing:.08em;color:rgba(255,255,255,.4);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+  .breadcrumb a:hover{color:var(--gold);}
+  .breadcrumb span{font-size:.75rem;color:rgba(255,255,255,.2);}
+  .breadcrumb-current{font-size:.75rem;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;}
+  .page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:500;color:var(--white);line-height:1.1;margin-bottom:20px;}
+  .page-hero-title em{font-style:italic;color:var(--gold);}
+  .page-hero-desc{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.5);max-width:540px;}
+  .hero-gold-line{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:48px;}
+
+  /* ── BLOG LAYOUT ── */
+  .blog-body{max-width:1280px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 320px;gap:64px;align-items:start;}
+
+  /* ── CATEGORY FILTER ── */
+  .filter-bar{display:flex;align-items:center;gap:10px;margin-bottom:48px;flex-wrap:wrap;}
+  .filter-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);margin-right:4px;}
+  .filter-btn{padding:8px 18px;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--taupe);background:transparent;border:1px solid var(--border);cursor:pointer;transition:all .2s;}
+  .filter-btn:hover,.filter-btn.active{background:var(--gold);color:var(--white);border-color:var(--gold);}
+
+  /* ── FEATURED POST ── */
+  .featured-post{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);margin-bottom:48px;background:var(--white);overflow:hidden;transition:box-shadow .3s;}
+  .featured-post:hover{box-shadow:0 16px 56px rgba(34,34,34,.08);}
+  .featured-img{background:linear-gradient(135deg,#D5CDBE 0%,#C0B89E 100%);min-height:320px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .featured-img-icon{font-size:5rem;opacity:.15;}
+  .featured-badge{position:absolute;top:20px;left:20px;background:var(--gold);color:var(--white);font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;}
+  .featured-content{padding:40px;}
+  .post-cat{font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+  .featured-title{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:500;line-height:1.25;color:var(--charcoal);margin-bottom:16px;}
+  .featured-excerpt{font-size:.9rem;line-height:1.75;color:var(--taupe);margin-bottom:28px;}
+  .post-meta{display:flex;align-items:center;gap:20px;margin-bottom:28px;}
+  .post-date{font-size:.76rem;color:var(--taupe);}
+  .post-read-time{font-size:.76rem;color:var(--taupe);display:flex;align-items:center;gap:6px;}
+  .post-read-time::before{content:'·';}
+  .read-more{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:gap .2s;}
+  .read-more:hover{gap:14px;}
+
+  /* ── POSTS GRID ── */
+  .posts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+
+  .post-card{background:var(--white);border:1px solid var(--border);overflow:hidden;transition:all .3s;display:flex;flex-direction:column;}
+  .post-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(34,34,34,.08);}
+  .post-card-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#E8E1D6 0%,#D4CDBE 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+  .post-card-img-icon{font-size:2.4rem;opacity:.2;}
+  .post-card-img-cat{position:absolute;bottom:0;left:0;right:0;padding:10px 16px;background:linear-gradient(transparent,rgba(34,34,34,.5));font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9);}
+  .post-card-body{padding:24px;display:flex;flex-direction:column;flex:1;}
+  .post-card-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;line-height:1.35;color:var(--charcoal);margin-bottom:10px;}
+  .post-card-excerpt{font-size:.82rem;line-height:1.65;color:var(--taupe);margin-bottom:auto;padding-bottom:20px;}
+  .post-card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:16px;}
+  .post-card-date{font-size:.74rem;color:var(--taupe);}
+  .post-card-link{font-size:.74rem;font-weight:500;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:4px;transition:gap .2s;}
+  .post-card-link:hover{gap:8px;}
+
+  /* ── LOAD MORE ── */
+  .load-more-wrap{text-align:center;margin-top:48px;}
+  .btn-outline{display:inline-flex;align-items:center;gap:8px;padding:13px 32px;background:transparent;color:var(--charcoal);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-decoration:none;border:1.5px solid var(--charcoal);cursor:pointer;transition:all .25s;}
+  .btn-outline:hover{background:var(--charcoal);color:var(--white);}
+
+  /* ── SIDEBAR ── */
+  .sidebar{display:flex;flex-direction:column;gap:32px;position:sticky;top:96px;}
+
+  .sidebar-widget{background:var(--white);border:1px solid var(--border);padding:28px;}
+  .widget-title{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+
+  /* Search */
+  .search-input{width:100%;padding:12px 16px;border:1px solid var(--border);background:var(--ivory);font-family:'Jost',sans-serif;font-size:.875rem;color:var(--charcoal);outline:none;transition:border-color .2s;}
+  .search-input:focus{border-color:var(--gold);}
+  .search-input::placeholder{color:var(--taupe);}
+
+  /* Categories */
+  .category-list{list-style:none;display:flex;flex-direction:column;gap:0;}
+  .category-item{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s;}
+  .category-item:last-child{border-bottom:none;}
+  .category-item:hover .cat-name{color:var(--gold);}
+  .cat-name{font-size:.85rem;color:var(--charcoal);transition:color .2s;}
+  .cat-count{font-size:.75rem;color:var(--taupe);background:var(--ivory);padding:2px 8px;}
+
+  /* Popular posts */
+  .popular-list{display:flex;flex-direction:column;gap:16px;}
+  .popular-item{display:flex;gap:12px;align-items:flex-start;text-decoration:none;}
+  .popular-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--border);line-height:1;flex-shrink:0;width:24px;}
+  .popular-title{font-size:.83rem;line-height:1.45;color:var(--charcoal);transition:color .2s;}
+  .popular-item:hover .popular-title{color:var(--gold);}
+  .popular-date{font-size:.72rem;color:var(--taupe);margin-top:4px;}
+
+  /* Tags */
+  .tags-cloud{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{padding:6px 12px;font-size:.75rem;font-weight:500;letter-spacing:.04em;border:1px solid var(--border);color:var(--taupe);cursor:pointer;transition:all .2s;text-decoration:none;}
+  .tag:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* CTA Widget */
+  .cta-widget{background:var(--charcoal);border:none;padding:32px;}
+  .cta-widget .widget-title{color:var(--gold);border-color:rgba(255,255,255,.1);}
+  .cta-widget-text{font-size:.85rem;line-height:1.7;color:rgba(255,255,255,.55);margin-bottom:20px;}
+  .btn-gold-sm{display:block;text-align:center;padding:12px 20px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-decoration:none;transition:background .25s;}
+  .btn-gold-sm:hover{background:var(--gold-lt);}
+
+  /* ── NEWSLETTER ── */
+  .newsletter{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 0;}
+  .newsletter-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+  .nl-tag{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block;}
+  .nl-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:500;color:var(--charcoal);margin-bottom:12px;}
+  .nl-desc{font-size:.9rem;line-height:1.7;color:var(--taupe);}
+  .nl-form{display:flex;gap:0;}
+  .nl-input{flex:1;padding:14px 20px;border:1.5px solid var(--border);border-right:none;background:var(--ivory);font-family:'Jost',sans-serif;font-size:.875rem;color:var(--charcoal);outline:none;transition:border-color .2s;}
+  .nl-input:focus{border-color:var(--gold);}
+  .nl-input::placeholder{color:var(--taupe);}
+  .nl-btn{padding:14px 28px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.06em;border:none;cursor:pointer;transition:background .25s;white-space:nowrap;}
+  .nl-btn:hover{background:var(--gold-lt);}
+  .nl-privacy{font-size:.74rem;color:var(--taupe);margin-top:12px;}
+
+  /* ── CTA BANNER ── */
+  .cta-banner{background:linear-gradient(135deg,var(--charcoal) 0%,#2C2A25 100%);padding:80px 40px;position:relative;overflow:hidden;}
+  .cta-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23B89A52' fill-opacity='0.04'%3E%3Cpath d='M40 40L0 0v80l40-40zm0 0l40 40V0L40 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+  .cta-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;z-index:2;}
+  .cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:500;color:var(--white);margin-bottom:10px;}
+  .cta-desc{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.6;}
+  .btn-gold{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.875rem;font-weight:500;letter-spacing:.06em;text-decoration:none;transition:all .25s;flex-shrink:0;white-space:nowrap;}
+  .btn-gold:hover{background:var(--gold-lt);transform:translateY(-1px);}
+
+  /* ── FOOTER ── */
+  footer{background:var(--dark);color:rgba(255,255,255,.7);padding:72px 40px 32px;}
+  .footer-inner{max-width:1280px;margin:0 auto;}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1.5fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px;}
+  .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;color:var(--white);text-decoration:none;}
+  .footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;}
+  .footer-tagline{font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.4);margin-bottom:24px;}
+  .footer-social{display:flex;gap:12px;}
+  .social-link{width:36px;height:36px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;font-size:.8rem;transition:all .2s;}
+  .social-link:hover{border-color:var(--gold);color:var(--gold);}
+  .footer-col-title{font-size:.72rem;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+  .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .footer-links a{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-links a:hover{color:var(--gold);}
+  .footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;}
+  .footer-contact-item svg{width:16px;height:16px;color:var(--gold);margin-top:2px;flex-shrink:0;}
+  .footer-contact-item a,.footer-contact-item span{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-contact-item a:hover{color:var(--gold);}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;}
+  .footer-copy{font-size:.76rem;color:rgba(255,255,255,.3);}
+  .footer-credit{font-size:.76rem;color:rgba(255,255,255,.2);letter-spacing:.06em;}
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .page-hero-inner{animation:fadeUp .7s ease both;}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1024px){
+    .blog-body{grid-template-columns:1fr;gap:48px;}
+    .sidebar{position:static;}
+    .newsletter-inner{grid-template-columns:1fr;}
+    .footer-top{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    .header-inner{padding:0 20px;}
+    nav{display:none;}
+    .blog-body{padding:48px 20px;}
+    .featured-post{grid-template-columns:1fr;}
+    .featured-img{min-height:200px;}
+    .posts-grid{grid-template-columns:1fr;}
+    .newsletter-inner{padding:0 20px;}
+    .nl-form{flex-direction:column;}
+    .nl-input{border-right:1.5px solid var(--border);border-bottom:none;}
+    .cta-inner{flex-direction:column;text-align:center;}
+    .footer-top{grid-template-columns:1fr;gap:32px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/>
+        <rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/>
+        <path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/>
+        <rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/>
+      </svg>
+      <span class="logo-text">LabourLaw.ge</span>
+    </a>
+        <nav>
+      <a href="index.html">მთავარი</a>
+      <a href="momsakhureba.html">მომსახურება</a>
+      <a href="blogi.html" class="active">ბლოგი</a>
+      <a href="resursebi.html">რესურსები</a>
+      <a href="chems-shesakheb.html">ჩემს შესახებ</a>
+      <a href="kontaqti.html">კონტაქტი</a>
+    </nav>
+    <a href="kontaqti.html" class="btn-primary">კონსულტაცია</a>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-pattern"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">მთავარი</a>
+      <span>/</span>
+      <span class="breadcrumb-current">ბლოგი</span>
+    </div>
+    <h1 class="page-hero-title">
+      შრომის სამართლის<br>
+      <em>სასარგებლო სტატიები</em>
+    </h1>
+    <p class="page-hero-desc">სასარგებლო, პრაქტიკული და გასაგები ინფორმაცია დასაქმებულებისთვის, დამსაქმებლებისთვის, HR მენეჯერებისა და ბიზნესისთვის.<br>გაეცანით თქვენს უფლებებს, ვალდებულებებსა და სამართლებრივ გზებს.</p>
+  </div>
+  <div class="hero-gold-line"></div>
+</section>
+
+<!-- MAIN BLOG BODY -->
+<div class="blog-body">
+
+  <!-- LEFT: POSTS -->
+  <div>
+
+    <!-- Category Filter -->
+    <div class="filter-bar">
+      <span class="filter-label">კატეგორია:</span>
+      <button class="filter-btn active" onclick="filterPosts(this,'all')">ყველა</button>
+      <button class="filter-btn" onclick="filterPosts(this,'rights')">დასაქმებულის უფლებები</button>
+      <button class="filter-btn" onclick="filterPosts(this,'employer')">დამსაქმებლის ვალდებულებები</button>
+      <button class="filter-btn" onclick="filterPosts(this,'contract')">ხელშეკრულებები</button>
+      <button class="filter-btn" onclick="filterPosts(this,'dismissal')">გათავისუფლება</button>
+      <button class="filter-btn" onclick="filterPosts(this,'qa')">კითხვები და პასუხები</button>
+      <button class="filter-btn" onclick="filterPosts(this,'news')">სიახლეები</button>
+      <button class="filter-btn" onclick="filterPosts(this,'hr')">HR / ბიზნესი</button>
+      <button class="filter-btn" onclick="filterPosts(this,'inspection')">შრომითი ინსპექცია</button>
+    </div>
+
+    <!-- Featured Post -->
+    <article class="featured-post" data-cat="rights">
+      <div class="featured-img">
+        <span class="featured-img-icon">⚖️</span>
+        <div class="featured-badge">გამორჩეული</div>
+      </div>
+      <div class="featured-content">
+        <div class="post-cat">დასაქმებულის უფლებები</div>
+        <h2 class="featured-title">რა უფლებები აქვს დასაქმებულს გათავისუფლების დროს?</h2>
+        <p class="featured-excerpt">გათავისუფლება ხშირად მოულოდნელი და სტრესული გამოცდილებაა. მაგრამ კანონი განსაზღვრავს მკაფიო ჩარჩოს — რა ეკუთვნის დასაქმებულს, რა ვადებში, და რა შემთხვევაში შეიძლება გათავისუფლება გასაჩივრდეს.</p>
+        <div class="post-meta">
+          <span class="post-date">20 მაისი, 2024</span>
+          <span class="post-read-time">8 წუთი</span>
+        </div>
+        <a href="article-1.html" class="read-more">სრულად წაიკითხე →</a>
+      </div>
+    </article>
+
+    <!-- Posts Grid -->
+    <div class="posts-grid" id="postsGrid">
+
+      <article class="post-card" data-cat="contract">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E8E1D6,#D4CDBE);">
+          <span class="post-card-img-icon">✍️</span>
+          <div class="post-card-img-cat">ხელშეკრულებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">როგორ უნდა შედგეს შრომითი ხელშეკრულება სწორად?</h3>
+          <p class="post-card-excerpt">სწორად შედგენილი ხელშეკრულება ამცირებს დავის რისკს და იცავს ორივე მხარეს. მის შედგენა უმჯობესია პროფესიონალის მონაწილეობით.</p>
+          <div class="post-card-footer"><span class="post-card-date">15 მაისი, 2024</span><a href="article-2.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="rights">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E0D8CC,#D0C8B8);">
+          <span class="post-card-img-icon">💰</span>
+          <div class="post-card-img-cat">დასაქმებულის უფლებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">თუ ხელფასი არ გიხდიან — რა უნდა გააკეთოთ?</h3>
+          <p class="post-card-excerpt">თუ ხელფასი არ გიხდიან, არ დაელოდოთ უსასრულოდ. დროული მოქმედება ზრდის წარმატების შანსს — გაქვთ სამართლებრივი დაცვის უფლება.</p>
+          <div class="post-card-footer"><span class="post-card-date">10 მაისი, 2024</span><a href="article-3.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="hr">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E8DED0,#D8CEBC);">
+          <span class="post-card-img-icon">⏰</span>
+          <div class="post-card-img-cat">კითხვები და პასუხები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">ზეგანაკვეთური სამუშაო და ანაზღაურება</h3>
+          <p class="post-card-excerpt">თუ რეგულარულად მუშაობთ დამატებით საათებს, შესაძლებელია გეკუთვნოდეთ დამატებითი ანაზღაურება. გაიგეთ როგორ დაიცვათ თავი.</p>
+          <div class="post-card-footer"><span class="post-card-date">5 მაისი, 2024</span><a href="article-4.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="rights">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#DDD4C4,#CCC3B0);">
+          <span class="post-card-img-icon">🏖️</span>
+          <div class="post-card-img-cat">დასაქმებულის უფლებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">შვებულებაზე უარის თქმა შეიძლება?</h3>
+          <p class="post-card-excerpt">შვებულება არის უფლება და არა პრივილეგია. დამსაქმებელს არ შეუძლია უსაფუძვლოდ უარი თქვას შვებულებაზე.</p>
+          <div class="post-card-footer"><span class="post-card-date">28 აპრილი, 2024</span><a href="article-5.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="rights">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E4DAC8,#D8CCB8);">
+          <span class="post-card-img-icon">☕</span>
+          <div class="post-card-img-cat">დასაქმებულის უფლებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">რამდენი შესვენება მეკუთვნის სამუშაო დროს?</h3>
+          <p class="post-card-excerpt">სამუშაო დღის განმავლობაში დასვენების დრო მნიშვნელოვანი შრომითი უფლებაა. კონკრეტული ხანგრძლივობა დამოკიდებულია სამუშაო პირობებზე.</p>
+          <div class="post-card-footer"><span class="post-card-date">20 აპრილი, 2024</span><a href="article-6.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="rights">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#DDD6C8,#D0C8B8);">
+          <span class="post-card-img-icon">🔍</span>
+          <div class="post-card-img-cat">დასაქმებულის უფლებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">დამსაქმებელი პირად ნივთებს თუ ამოწმებს — კანონიერია?</h3>
+          <p class="post-card-excerpt">დამსაქმებელს შეიძლება ჰქონდეს კონტროლის გარკვეული უფლება, მაგრამ არა შეუზღუდავი. გაიგეთ სად გადის ზღვარი.</p>
+          <div class="post-card-footer"><span class="post-card-date">12 აპრილი, 2024</span><a href="article-7.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="employer">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E0D8CC,#D4CCBC);">
+          <span class="post-card-img-icon">📋</span>
+          <div class="post-card-img-cat">დამსაქმებლის ვალდებულებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">რა ვალდებულებები აქვს დამსაქმებელს დასაქმებულის მიმართ?</h3>
+          <p class="post-card-excerpt">შრომითი ურთიერთობა ორმხრივი პასუხისმგებლობაა. გაიგეთ დამსაქმებლის ძირითადი სამართლებრივი ვალდებულებები.</p>
+          <div class="post-card-footer"><span class="post-card-date">5 აპრილი, 2024</span><a href="article-8.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="employer">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E8E2D4,#DCD6C8);">
+          <span class="post-card-img-icon">🦺</span>
+          <div class="post-card-img-cat">დამსაქმებლის ვალდებულებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">შრომითი უსაფრთხოების ვალდებულებები კომპანიაში</h3>
+          <p class="post-card-excerpt">შრომითი უსაფრთხოება კანონით, ეთიკით და ბიზნეს ინტერესითაც აუცილებელი საკითხია. კომპანიამ ვალდებულია შექმნას დაცული გარემო.</p>
+          <div class="post-card-footer"><span class="post-card-date">1 აპრილი, 2024</span><a href="article-9.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="employer">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E4DCD0,#DACEBC);">
+          <span class="post-card-img-icon">🔒</span>
+          <div class="post-card-img-cat">დამსაქმებლის ვალდებულებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">თანამშრომლის მონაცემების დაცვა</h3>
+          <p class="post-card-excerpt">თანამშრომლის მონაცემები უბრალო ინფორმაცია არ არის — ეს არის პირადი სივრცის ნაწილი. კომპანიამ იგი კანონიერად უნდა დაამუშაოს.</p>
+          <div class="post-card-footer"><span class="post-card-date">25 მარტი, 2024</span><a href="article-10.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="contract">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E4DAC8,#D8CCB4);">
+          <span class="post-card-img-icon">🤝</span>
+          <div class="post-card-img-cat">ხელშეკრულებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">ზეპირი შეთანხმება ითვლება თუ არა ხელშეკრულებად?</h3>
+          <p class="post-card-excerpt">წერილობითი ხელშეკრულების არარსებობა ავტომატურად არ ნიშნავს, რომ თანამშრომელს უფლებები არ აქვს. გაიგეთ სიმართლე.</p>
+          <div class="post-card-footer"><span class="post-card-date">18 მარტი, 2024</span><a href="article-11.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="contract">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#DDD6C4,#D2CAB4);">
+          <span class="post-card-img-icon">⏳</span>
+          <div class="post-card-img-cat">ხელშეკრულებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">გამოსაცდელი ვადა კანონიერია?</h3>
+          <p class="post-card-excerpt">გამოსაცდელი ვადა შეიძლება იყოს კანონიერი და სასარგებლო ინსტრუმენტი, თუ სწორად გამოიყენება.</p>
+          <div class="post-card-footer"><span class="post-card-date">10 მარტი, 2024</span><a href="article-12.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="dismissal">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#DDD4C4,#CCC3B0);">
+          <span class="post-card-img-icon">🚪</span>
+          <div class="post-card-img-cat">გათავისუფლება</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">უკანონო გათავისუფლება — როგორ დავიცვა თავი?</h3>
+          <p class="post-card-excerpt">თუ გაგათავისუფლეს უსამართლოდ, ეს არ ნიშნავს, რომ არაფრის გაკეთება შეგიძლიათ. გაიგეთ რა ნაბიჯები გადადგათ.</p>
+          <div class="post-card-footer"><span class="post-card-date">5 მარტი, 2024</span><a href="article-13.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="dismissal">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E0D8CC,#D4CCBC);">
+          <span class="post-card-img-icon">⚡</span>
+          <div class="post-card-img-cat">გათავისუფლება</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">გაფრთხილების გარეშე გათავისუფლება შეიძლება?</h3>
+          <p class="post-card-excerpt">გაფრთხილების გარეშე გათავისუფლება ზოგჯერ შესაძლებელია, მაგრამ ავტომატურად კანონიერი არ არის.</p>
+          <div class="post-card-footer"><span class="post-card-date">28 თებერვალი, 2024</span><a href="article-14.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="dismissal">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E8DDD0,#DCCFC0);">
+          <span class="post-card-img-icon">💼</span>
+          <div class="post-card-img-cat">გათავისუფლება</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">როდის ეკუთვნის კომპენსაცია დასაქმებულს?</h3>
+          <p class="post-card-excerpt">კომპენსაცია ყველა გათავისუფლებაზე ავტომატურად არ გაიცემა, მაგრამ რიგ შემთხვევებში გაქვთ მოთხოვნის საფუძველი.</p>
+          <div class="post-card-footer"><span class="post-card-date">20 თებერვალი, 2024</span><a href="article-15.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="news">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E8E2D4,#DCCEBC);">
+          <span class="post-card-img-icon">📰</span>
+          <div class="post-card-img-cat">სიახლეები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">2026 წელს რა შეიცვალა შრომის კანონმდებლობაში</h3>
+          <p class="post-card-excerpt">მთავარი ცვლილებების მიმოხილვა — ახალი რეგულაციები დამსაქმებლებისთვის და პრაქტიკული ეფექტი.</p>
+          <div class="post-card-footer"><span class="post-card-date">1 მარტი, 2026</span><a href="article-news-1.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+      <article class="post-card" data-cat="inspection">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#E0D8CC,#D4CCBC);">
+          <span class="post-card-img-icon">🔎</span>
+          <div class="post-card-img-cat">შრომითი ინსპექცია</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">შრომითი ინსპექცია რას ამოწმებს კომპანიაში?</h3>
+          <p class="post-card-excerpt">დოკუმენტაცია, უსაფრთხოება, ხელფასები — ყველაფერი, რაც კომპანიამ უნდა იცოდეს შრომის ინსპექციის ვიზიტამდე.</p>
+          <div class="post-card-footer"><span class="post-card-date">15 თებერვალი, 2024</span><a href="article-inspection-1.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+
+      <article class="post-card" data-cat="rights">
+        <div class="post-card-img" style="background:linear-gradient(135deg,#D8E4D0,#C8D4B8);">
+          <span class="post-card-img-icon">👦</span>
+          <div class="post-card-img-cat">დასაქმებულის უფლებები</div>
+        </div>
+        <div class="post-card-body">
+          <h3 class="post-card-title">არასრულწლოვანთა სეზონური დასაქმება — უფლებები, წესები და რისკები</h3>
+          <p class="post-card-excerpt">პრაქტიკული გზამკვლევი მოზარდებისა და მშობლებისთვის: სამუშაო დრო, ანაზღაურება, აკრძალული სამუშაოები და სამართლებრივი დაცვა.</p>
+          <div class="post-card-footer"><span class="post-card-date">2024</span><a href="article-seasonal.html" class="post-card-link">წაიკითხე →</a></div>
+        </div>
+      </article>
+
+    </div><!-- /posts-grid -->
+
+
+
+  </div><!-- /left -->
+
+  <!-- RIGHT: SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- Search -->
+    <div class="sidebar-widget">
+      <div class="widget-title">ძებნა</div>
+      <input class="search-input" type="text" placeholder="სტატიის ძებნა...">
+    </div>
+
+    <!-- Categories -->
+    <div class="sidebar-widget">
+      <div class="widget-title">კატეგორიები</div>
+      <ul class="category-list">
+        <li class="category-item" onclick="filterPosts(null,'rights')">
+          <span class="cat-name">დასაქმებულის უფლებები</span>
+          <span class="cat-count">6</span>
+        </li>
+        <li class="category-item" onclick="filterPosts(null,'employer')">
+          <span class="cat-name">დამსაქმებლის ვალდებულებები</span>
+          <span class="cat-count">6</span>
+        </li>
+        <li class="category-item" onclick="filterPosts(null,'contract')">
+          <span class="cat-name">ხელშეკრულებები</span>
+          <span class="cat-count">6</span>
+        </li>
+        <li class="category-item" onclick="filterPosts(null,'dismissal')">
+          <span class="cat-name">გათავისუფლება</span>
+          <span class="cat-count">6</span>
+        </li>
+        <li class="category-item" onclick="filterPosts(null,'hr')">
+          <span class="cat-name">HR / ბიზნესი</span>
+          <span class="cat-count">6</span>
+        </li>
+        <li class="category-item" onclick="filterPosts(null,'news')">
+          <span class="cat-name">სიახლეები</span>
+          <span class="cat-count">6</span>
+        </li>
+        <li class="category-item" onclick="filterPosts(null,'inspection')">
+          <span class="cat-name">შრომითი ინსპექცია</span>
+          <span class="cat-count">6</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Popular Posts -->
+    <div class="sidebar-widget">
+      <div class="widget-title">პოპულარული</div>
+      <div class="popular-list">
+        <a href="#" class="popular-item">
+          <span class="popular-num">01</span>
+          <div>
+            <div class="popular-title">რა უფლებები აქვს დასაქმებულს გათავისუფლებისას?</div>
+            <div class="popular-date">20 მაისი, 2024</div>
+          </div>
+        </a>
+        <a href="#" class="popular-item">
+          <span class="popular-num">02</span>
+          <div>
+            <div class="popular-title">უკანონო გათავისუფლება — პრაქტიკული გზამკვლევი</div>
+            <div class="popular-date">28 აპრილი, 2024</div>
+          </div>
+        </a>
+        <a href="#" class="popular-item">
+          <span class="popular-num">03</span>
+          <div>
+            <div class="popular-title">ხელფასი არ გიხდიან — რა გათ?</div>
+            <div class="popular-date">10 მაისი, 2024</div>
+          </div>
+        </a>
+        <a href="#" class="popular-item">
+          <span class="popular-num">04</span>
+          <div>
+            <div class="popular-title">შრომითი ხელშეკრულება — სავალდებულო პუნქტები</div>
+            <div class="popular-date">15 მაისი, 2024</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="sidebar-widget">
+      <div class="widget-title">თეგები</div>
+      <div class="tags-cloud">
+        <a href="#" class="tag">გათავისუფლება</a>
+        <a href="#" class="tag">ხელფასი</a>
+        <a href="#" class="tag">ხელშეკრულება</a>
+        <a href="#" class="tag">ზეგანაკვეთური</a>
+        <a href="#" class="tag">შვებულება</a>
+        <a href="#" class="tag">ინსპექცია</a>
+        <a href="#" class="tag">NDA</a>
+        <a href="#" class="tag">HR</a>
+        <a href="#" class="tag">კომპენსაცია</a>
+        <a href="#" class="tag">მედიაცია</a>
+        <a href="#" class="tag">სასამართლო</a>
+      </div>
+    </div>
+
+    <!-- CTA Widget -->
+    <div class="sidebar-widget cta-widget">
+      <div class="widget-title">კონსულტაცია</div>
+      <p class="cta-widget-text">გაქვთ კონკრეტული კითხვა? პირდაპირ დამიკავშირდით — პირველი კონსულტაცია სავალდებულო ბოჭვის გარეშე.</p>
+      <a href="#contact" class="btn-gold-sm">კონსულტაციის მიღება</a>
+    </div>
+
+  </aside>
+
+</div><!-- /blog-body -->
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <div>
+      <span class="nl-tag">გამოიწერეთ</span>
+      <h2 class="nl-title">შრომის სამართლის სიახლეები — პირდაპირ თქვენს ფოსტაზე</h2>
+      <p class="nl-desc">ყოველთვიური სტატიები, კანონმდებლობის ცვლილებები და პრაქტიკული რჩევები — ყოველგვარი სპამის გარეშე.</p>
+    </div>
+    <div>
+      <div class="nl-form">
+        <input class="nl-input" type="email" placeholder="თქვენი ელფოსტა">
+        <button class="nl-btn">გამოიწერე</button>
+      </div>
+      <p class="nl-privacy">🔒 თქვენი მონაცემები დაცულია. გამოწერის გაუქმება ნებისმიერ დროს შეიძლება.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact">
+  <div class="cta-inner">
+    <div>
+      <h2 class="cta-title">გჭირდებათ იურიდიული დახმარება?</h2>
+      <p class="cta-desc">სტატიის წაკითხვა პირველი ნაბიჯია — მაგრამ თქვენი სიტუაცია ინდივიდუალურია. კონსულტაცია დაგეხმარებათ.</p>
+    </div>
+    <a href="kontaqti.html" class="btn-gold">დამიკავშირდით →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/><rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/><path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/><rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/></svg>
+          <span class="footer-logo-text">LabourLaw.ge</span>
+        </a>
+        <p class="footer-tagline">შრომის სამართლის სფეროში პროფესიონალური იურიდიული მხარდაჭერა ფიზიკური პირებისა და კომპანიებისათვის.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">✓</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">მომსახურება</div>
+        <ul class="footer-links">
+          <li><a href="momsakhureba.html#s1">შრომითი დავები</a></li>
+          <li><a href="momsakhureba.html#s2">ხელშეკრულებები</a></li>
+          <li><a href="momsakhureba.html#s3">იურიდიული კონსულტაცია</a></li>
+          <li><a href="momsakhureba.html#s4">სასამართლო წარმომადგენლობა</a></li>
+          <li><a href="momsakhureba.html#s5">HR სამართალი</a></li>
+          <li><a href="momsakhureba.html#s6">აბონენტური მომსახურება</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">კატეგორიები</div>
+        <ul class="footer-links">
+          <li><a href="#">დასაქმებულის უფლებები</a></li>
+          <li><a href="#">დამსაქმებლის ვალდებულება</a></li>
+          <li><a href="#">ხელშეკრულებები</a></li>
+          <li><a href="#">გათავისუფლება</a></li>
+          <li><a href="#">HR / ბიზნესი</a></li>
+          <li><a href="#">შრომითი ინსპექცია</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">კონტაქტი</div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.12 2.38 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <a href="tel:+995555123456">+995 555 123 456</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:info@labourlaw.ge">info@labourlaw.ge</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>თბილისი, საქართველო</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">ნავიგაცია</div>
+        <ul class="footer-links">
+          <li><a href="index.html">მთავარი</a></li>
+          <li><a href="momsakhureba.html">მომსახურება</a></li>
+          <li><a href="chems-shesakheb.html">ჩემს შესახებ</a></li>
+          <li><a href="kontaqti.html">კონტაქტი</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 LabourLaw.ge. ყველა უფლება დაცულია.</span>
+      <span class="footer-credit">WEB DEVELOPMENT BY YOUR STUDIO</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function filterPosts(btn, cat) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    const cards = document.querySelectorAll('#postsGrid .post-card');
+    cards.forEach(card => {
+      const match = cat === 'all' || card.dataset.cat === cat;
+      card.style.display = match ? 'flex' : 'none';
+      card.style.animation = match ? 'fadeUp .4s ease both' : 'none';
+    });
+  }
+
+  // Search functionality
+  document.querySelector('.search-input').addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#postsGrid .post-card').forEach(card => {
+      const title = card.querySelector('.post-card-title').textContent.toLowerCase();
+      const excerpt = card.querySelector('.post-card-excerpt').textContent.toLowerCase();
+      card.style.display = (title.includes(q) || excerpt.includes(q)) ? 'flex' : 'none';
+    });
+  });
+</script>
+</body>
+</html>

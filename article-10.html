@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>თანამშრომლის მონაცემების დაცვა | LabourLaw.ge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ivory:#F7F3EC;--white:#fff;--charcoal:#222;--gold:#B89A52;--gold-lt:#C9AD6A;--taupe:#8A7D6A;--border:#E8E1D6;--dark:#1C1A17;}
+  *{margin:0;padding:0;box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--charcoal);overflow-x:hidden;}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,243,236,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--charcoal);}
+  .logo-text{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:.02em;}
+  nav{display:flex;align-items:center;gap:36px;}
+  nav a{font-size:.875rem;color:var(--charcoal);text-decoration:none;transition:color .2s;position:relative;letter-spacing:.04em;}
+  nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .25s;}
+  nav a:hover,nav a.active{color:var(--gold);} nav a:hover::after,nav a.active::after{width:100%;}
+  .btn-primary{display:inline-flex;align-items:center;padding:11px 24px;background:var(--gold);color:#fff;font-family:'Jost',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-decoration:none;transition:background .25s;}
+  .btn-primary:hover{background:var(--gold-lt);}
+  .article-hero{padding-top:68px;background:var(--dark);position:relative;overflow:hidden;}
+  .article-hero::before{content:'';position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px);}
+  .article-hero-inner{max-width:860px;margin:0 auto;padding:64px 40px 72px;position:relative;z-index:2;}
+  .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:24px;}
+  .breadcrumb a{font-size:.75rem;letter-spacing:.08em;color:rgba(255,255,255,.4);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+  .breadcrumb a:hover{color:var(--gold);} .breadcrumb span{font-size:.75rem;color:rgba(255,255,255,.2);}
+  .breadcrumb-current{font-size:.75rem;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;}
+  .article-cat{display:inline-block;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+  .article-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:500;color:#fff;line-height:1.15;margin-bottom:20px;}
+  .article-meta{display:flex;align-items:center;gap:20px;} .article-meta-item{font-size:.78rem;color:rgba(255,255,255,.4);}
+  .hero-gold-line{height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+  .article-layout{max-width:1160px;margin:0 auto;padding:72px 40px;display:grid;grid-template-columns:1fr 300px;gap:64px;align-items:start;}
+  .article-intro{font-size:1.1rem;line-height:1.85;color:var(--charcoal);margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--border);}
+  .article-h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:500;color:var(--charcoal);margin:44px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--gold);display:inline-block;}
+  .article-h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--charcoal);margin:28px 0 10px;}
+  .article-p{font-size:.95rem;line-height:1.85;color:var(--taupe);margin-bottom:16px;}
+  .article-ul{list-style:none;margin:12px 0 20px 0;display:flex;flex-direction:column;gap:8px;}
+  .article-ul li{font-size:.9rem;line-height:1.6;color:var(--taupe);padding-left:20px;position:relative;}
+  .article-ul li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:.85rem;}
+  .article-checks{list-style:none;margin:12px 0 20px;display:flex;flex-direction:column;gap:10px;}
+  .article-checks li{font-size:.9rem;line-height:1.6;color:var(--charcoal);display:flex;align-items:flex-start;gap:10px;}
+  .check{color:var(--gold);font-weight:600;flex-shrink:0;}
+  .article-crosses{list-style:none;margin:12px 0 20px;display:flex;flex-direction:column;gap:10px;}
+  .article-crosses li{font-size:.9rem;line-height:1.6;color:var(--taupe);display:flex;align-items:flex-start;gap:10px;}
+  .cross{color:#C0392B;font-weight:600;flex-shrink:0;}
+  .article-conclusion{background:var(--dark);padding:32px;margin-top:48px;}
+  .article-conclusion p{font-size:.95rem;line-height:1.75;color:rgba(255,255,255,.65);margin-bottom:20px;}
+  .btn-gold-sm{display:inline-flex;align-items:center;padding:12px 24px;background:var(--gold);color:#fff;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.05em;text-decoration:none;transition:background .25s;}
+  .btn-gold-sm:hover{background:var(--gold-lt);}
+  .article-sidebar{position:sticky;top:96px;display:flex;flex-direction:column;gap:20px;}
+  .sidebar-box{background:#fff;border:1px solid var(--border);padding:24px;}
+  .sidebar-box-title{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+  .sidebar-related{list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .sidebar-related a{font-size:.83rem;color:var(--charcoal);text-decoration:none;line-height:1.45;transition:color .2s;display:flex;align-items:flex-start;gap:8px;}
+  .sidebar-related a::before{content:'→';color:var(--gold);font-size:.75rem;flex-shrink:0;margin-top:2px;}
+  .sidebar-related a:hover{color:var(--gold);}
+  .sidebar-cta{background:var(--dark);border:none;padding:28px;}
+  .sidebar-cta .sidebar-box-title{color:var(--gold);border-color:rgba(255,255,255,.1);}
+  .sidebar-cta-text{font-size:.83rem;line-height:1.7;color:rgba(255,255,255,.5);margin-bottom:16px;}
+  footer{background:var(--dark);padding:40px;}
+  .footer-bottom-simple{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+  .footer-logo{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;}
+  .footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;}
+  .footer-copy{font-size:.76rem;color:rgba(255,255,255,.3);}
+  @media(max-width:900px){.article-layout{grid-template-columns:1fr;}.article-sidebar{position:static;}.header-inner{padding:0 20px;}nav{display:none;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/><rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/><path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/><rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/></svg>
+      <span class="logo-text">LabourLaw.ge</span>
+    </a>
+    <nav>
+      <a href="index.html">მთავარი</a>
+      <a href="momsakhureba.html">მომსახურება</a>
+      <a href="blogi.html" class="active">ბლოგი</a>
+      <a href="resursebi.html">რესურსები</a>
+      <a href="chems-shesakheb.html">ჩემს შესახებ</a>
+      <a href="kontaqti.html">კონტაქტი</a>
+    </nav>
+    <a href="kontaqti.html" class="btn-primary">კონსულტაცია</a>
+  </div>
+</header>
+
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">მთავარი</a><span>/</span>
+      <a href="blogi.html">ბლოგი</a><span>/</span>
+      <span class="breadcrumb-current">დამსაქმებლის ვალდებულებები</span>
+    </div>
+    <div class="article-cat">დამსაქმებლის ვალდებულებები</div>
+    <h1 class="article-title">თანამშრომლის მონაცემების დაცვა</h1>
+    <div class="article-meta">
+      <span class="article-meta-item">📅 25 მარტი, 2024</span>
+      <span class="article-meta-item">⏱ 7 წუთი</span>
+      <span class="article-meta-item">✍️ ნატო ნათენაძე</span>
+    </div>
+  </div>
+  <div class="hero-gold-line"></div>
+</section>
+
+<div class="article-layout">
+  <article>
+    <p class="article-intro">თანამშრომლის მონაცემები უბრალო ინფორმაცია არ არის — ეს არის პირადი სივრცის ნაწილი. კომპანიამ იგი უნდა დაამუშაოს ფრთხილად, კანონიერად და პასუხისმგებლობით.</p>
+    <h2 class="article-h2">კომპანიის ვალდებულებები</h2>
+<h3 class="article-h3">1. მხოლოდ საჭირო მონაცემების შეგროვება</h3>
+<h3 class="article-h3">2. მონაცემების უსაფრთხოდ შენახვა</h3>
+<ul class="article-ul"><li>დაცული ფაილები</li><li>შეზღუდული წვდომა</li><li>უსაფრთხო HR სისტემები</li></ul>
+<h3 class="article-h3">3. კონფიდენციალურობა</h3>
+<ul class="article-crosses"><li><span class="cross">✘</span>ხელფასების საჯაროდ განხილვა</li><li><span class="cross">✘</span>თანამშრომლის პირადი პრობლემების გავრცელება</li><li><span class="cross">✘</span>HR საქმის გაზიარება ოფისში</li></ul>
+<h2 class="article-h2">თანამშრომლის უფლებები</h2>
+<ul class="article-checks"><li><span class="check">✔</span>იცოდეს რა მონაცემები ინახება</li><li><span class="check">✔</span>მოითხოვოს შეცდომის გასწორება</li><li><span class="check">✔</span>დააყენოს კონფიდენციალურობის საკითხი</li><li><span class="check">✔</span>გააპროტესტოს უკანონო გამოყენება</li></ul>
+<div class="article-conclusion"><p>თუ სამსახურში თქვენი პირადი მონაცემები გაავრცელეს ან არასწორად გამოიყენეს — დაგვიკავშირდით.</p><a href="kontaqti.html" class="btn-gold-sm">კონსულტაციის მიღება →</a></div>
+  </article>
+  <aside class="article-sidebar">
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">სხვა სტატიები</div>
+      <ul class="sidebar-related">
+        <li><a href="article-8.html">რა ვალდებულებები აქვს დამსაქმებელს?</a></li>
+        <li><a href="article-9.html">შრომითი უსაფრთხოების ვალდებულებები</a></li>
+        <li><a href="article-7.html">დამსაქმებელი პირად ნივთებს ამოწმებს — კანონიერია?</a></li>
+        <li><a href="article-2.html">როგორ შედგეს შრომითი ხელშეკრულება სწორად?</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-box sidebar-cta">
+      <div class="sidebar-box-title">კონსულტაცია</div>
+      <p class="sidebar-cta-text">გჭირდებათ კონკრეტული შეფასება თქვენი საქმის შესახებ?</p>
+      <a href="kontaqti.html" class="btn-gold-sm">დამიკავშირდი →</a>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-bottom-simple">
+    <a href="index.html" class="footer-logo">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/><rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/><path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/><rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/></svg>
+      <span class="footer-logo-text">LabourLaw.ge</span>
+    </a>
+    <span class="footer-copy">© 2024 LabourLaw.ge. ყველა უფლება დაცულია.</span>
+  </div>
+</footer>
+</body>
+</html>

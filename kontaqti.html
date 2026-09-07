@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>კონტაქტი — LabourLaw.ge | ნატო ნათენაძე</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:   #F7F3EC;
+    --white:   #FFFFFF;
+    --charcoal:#222222;
+    --gold:    #B89A52;
+    --gold-lt: #C9AD6A;
+    --taupe:   #8A7D6A;
+    --border:  #E8E1D6;
+    --dark:    #1C1A17;
+    --ivory-dk:#EDE6D9;
+    --error:   #C0392B;
+    --success: #27AE60;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--charcoal);overflow-x:hidden;}
+
+  /* ── HEADER ── */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,243,236,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--charcoal);}
+  .logo-text{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:.02em;}
+  nav{display:flex;align-items:center;gap:36px;}
+  nav a{font-size:.875rem;font-weight:400;letter-spacing:.04em;color:var(--charcoal);text-decoration:none;transition:color .2s;position:relative;}
+  nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .25s;}
+  nav a:hover{color:var(--gold);}
+  nav a:hover::after,nav a.active::after{width:100%;}
+  nav a.active{color:var(--gold);}
+  .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-decoration:none;transition:background .25s,transform .15s;}
+  .btn-primary:hover{background:var(--gold-lt);transform:translateY(-1px);}
+
+  /* ── PAGE HERO ── */
+  .page-hero{padding-top:68px;background:var(--charcoal);position:relative;overflow:hidden;}
+  .hero-pattern{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px);}
+  .hero-inner{max-width:1280px;margin:0 auto;padding:72px 40px 80px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+  .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+  .breadcrumb a{font-size:.75rem;letter-spacing:.08em;color:rgba(255,255,255,.4);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+  .breadcrumb a:hover{color:var(--gold);}
+  .breadcrumb span{font-size:.75rem;color:rgba(255,255,255,.2);}
+  .breadcrumb-current{font-size:.75rem;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;}
+  .hero-tag{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+  .hero-tag::before{content:'';width:32px;height:1px;background:var(--gold);}
+  .page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,3.4rem);font-weight:500;color:var(--white);line-height:1.1;margin-bottom:20px;}
+  .page-hero-title em{font-style:italic;color:var(--gold);}
+  .page-hero-desc{font-size:.95rem;line-height:1.8;color:rgba(255,255,255,.5);margin-bottom:36px;}
+
+  /* Quick contact chips */
+  .quick-contacts{display:flex;flex-direction:column;gap:12px;}
+  .qc-item{display:flex;align-items:center;gap:14px;padding:14px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;transition:all .25s;}
+  .qc-item:hover{background:rgba(184,154,82,.08);border-color:rgba(184,154,82,.2);}
+  .qc-icon{width:36px;height:36px;background:rgba(184,154,82,.12);border:1px solid rgba(184,154,82,.2);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0;}
+  .qc-label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:2px;}
+  .qc-value{font-size:.9rem;color:rgba(255,255,255,.8);font-weight:400;}
+  .qc-arrow{margin-left:auto;color:rgba(255,255,255,.2);transition:color .2s,transform .2s;}
+  .qc-item:hover .qc-arrow{color:var(--gold);transform:translateX(4px);}
+  .hero-gold-line{height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+
+  /* ── MAIN LAYOUT ── */
+  .contact-body{max-width:1280px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start;}
+
+  /* ── CONTACT FORM ── */
+  .form-section{}
+  .form-intro-tag{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block;}
+  .form-intro-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:500;color:var(--charcoal);margin-bottom:8px;}
+  .form-intro-desc{font-size:.875rem;line-height:1.7;color:var(--taupe);margin-bottom:40px;}
+
+  /* Service type selector */
+  .service-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:32px;}
+  .svc-btn{padding:14px 12px;border:1.5px solid var(--border);background:var(--white);font-family:'Jost',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--taupe);cursor:pointer;transition:all .2s;text-align:center;}
+  .svc-btn:hover{border-color:var(--gold);color:var(--charcoal);}
+  .svc-btn.selected{border-color:var(--gold);background:rgba(184,154,82,.06);color:var(--gold);}
+
+  /* Form fields */
+  .form{display:flex;flex-direction:column;gap:20px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-group{display:flex;flex-direction:column;gap:8px;}
+  .form-label{font-size:.75rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--taupe);}
+  .form-input,
+  .form-select,
+  .form-textarea{width:100%;padding:14px 18px;border:1.5px solid var(--border);background:var(--white);font-family:'Jost',sans-serif;font-size:.9rem;color:var(--charcoal);outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;}
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,154,82,.08);}
+  .form-input::placeholder,
+  .form-textarea::placeholder{color:var(--taupe);opacity:.7;}
+  .form-select{background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%238A7D6A' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;cursor:pointer;}
+  .form-textarea{resize:vertical;min-height:140px;line-height:1.65;}
+  .form-input.error,
+  .form-select.error,
+  .form-textarea.error{border-color:var(--error);}
+  .form-error-msg{font-size:.74rem;color:var(--error);display:none;}
+  .form-error-msg.visible{display:block;}
+
+  /* Checkbox */
+  .form-check{display:flex;align-items:flex-start;gap:12px;cursor:pointer;}
+  .form-check-input{width:18px;height:18px;border:1.5px solid var(--border);background:var(--white);flex-shrink:0;appearance:none;margin-top:1px;cursor:pointer;transition:all .2s;position:relative;}
+  .form-check-input:checked{background:var(--gold);border-color:var(--gold);}
+  .form-check-input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--white);font-size:.65rem;font-weight:700;}
+  .form-check-label{font-size:.83rem;line-height:1.6;color:var(--taupe);}
+  .form-check-label a{color:var(--gold);text-decoration:none;}
+  .form-check-label a:hover{text-decoration:underline;}
+
+  /* Submit button */
+  .form-submit{display:flex;align-items:center;justify-content:space-between;margin-top:8px;flex-wrap:wrap;gap:16px;}
+  .btn-submit{display:inline-flex;align-items:center;gap:12px;padding:16px 36px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.9rem;font-weight:500;letter-spacing:.06em;border:none;cursor:pointer;transition:all .25s;}
+  .btn-submit:hover{background:var(--gold-lt);transform:translateY(-2px);}
+  .btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+  .btn-submit svg{transition:transform .2s;}
+  .btn-submit:hover svg{transform:translateX(4px);}
+  .form-note{font-size:.76rem;color:var(--taupe);display:flex;align-items:center;gap:6px;}
+  .form-note svg{color:var(--gold);flex-shrink:0;}
+
+  /* Success message */
+  .success-msg{display:none;flex-direction:column;align-items:center;text-align:center;padding:60px 40px;background:var(--white);border:1px solid var(--border);}
+  .success-msg.visible{display:flex;}
+  .success-icon{width:72px;height:72px;background:rgba(39,174,96,.08);border:1.5px solid rgba(39,174,96,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;color:var(--success);font-size:1.8rem;}
+  .success-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--charcoal);margin-bottom:12px;}
+  .success-desc{font-size:.9rem;line-height:1.7;color:var(--taupe);max-width:400px;}
+
+  /* ── SIDEBAR ── */
+  .contact-sidebar{display:flex;flex-direction:column;gap:24px;position:sticky;top:96px;}
+
+  .sidebar-card{background:var(--white);border:1px solid var(--border);padding:28px;}
+  .sidebar-card-title{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+
+  /* Contact info */
+  .contact-info-list{display:flex;flex-direction:column;gap:0;}
+  .ci-item{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:all .2s;}
+  .ci-item:last-child{border-bottom:none;}
+  .ci-item:hover .ci-value{color:var(--gold);}
+  .ci-icon{width:36px;height:36px;background:rgba(184,154,82,.06);border:1px solid rgba(184,154,82,.15);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0;}
+  .ci-label{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--taupe);display:block;margin-bottom:3px;}
+  .ci-value{font-size:.875rem;color:var(--charcoal);transition:color .2s;line-height:1.4;}
+
+  /* Hours */
+  .hours-list{display:flex;flex-direction:column;gap:0;}
+  .hours-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:.83rem;}
+  .hours-item:last-child{border-bottom:none;}
+  .hours-day{color:var(--taupe);}
+  .hours-time{color:var(--charcoal);font-weight:500;}
+  .hours-closed{color:var(--border);}
+  .hours-badge{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;}
+  .hours-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .hours-badge-text{color:var(--success);}
+
+  /* Social */
+  .social-list{display:flex;gap:10px;}
+  .soc-link{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--taupe);text-decoration:none;font-size:.8rem;font-weight:600;transition:all .2s;}
+  .soc-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(184,154,82,.04);}
+
+  /* Dark CTA card */
+  .sidebar-card-dark{background:var(--dark);border:none;padding:32px;}
+  .sidebar-card-dark .sidebar-card-title{color:var(--gold);border-color:rgba(255,255,255,.08);}
+  .dark-card-text{font-size:.85rem;line-height:1.7;color:rgba(255,255,255,.5);margin-bottom:20px;}
+  .btn-gold-full{display:block;text-align:center;padding:13px 20px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.06em;text-decoration:none;transition:background .25s;}
+  .btn-gold-full:hover{background:var(--gold-lt);}
+
+  /* ── MAP SECTION ── */
+  .map-section{background:var(--white);border-top:1px solid var(--border);}
+  .map-inner{max-width:1280px;margin:0 auto;padding:64px 40px;}
+  .map-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;}
+  .map-tag{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
+  .map-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--charcoal);}
+  .map-address{font-size:.85rem;color:var(--taupe);}
+  .map-frame{width:100%;height:320px;background:linear-gradient(135deg,var(--ivory-dk) 0%,var(--border) 100%);position:relative;overflow:hidden;border:1px solid var(--border);}
+  .map-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+  .map-grid{position:absolute;inset:0;opacity:.4;background-image:repeating-linear-gradient(0deg,transparent,transparent 30px,var(--border) 30px,var(--border) 31px),repeating-linear-gradient(90deg,transparent,transparent 30px,var(--border) 30px,var(--border) 31px);}
+  .map-pin{width:56px;height:56px;background:var(--gold);border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(184,154,82,.4);position:relative;z-index:1;}
+  .map-pin svg{transform:rotate(45deg);color:var(--white);}
+  .map-pin-label{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--charcoal);position:relative;z-index:1;}
+  .map-pin-sub{font-size:.8rem;color:var(--taupe);position:relative;z-index:1;}
+
+  /* ── FAQ ── */
+  .faq-section{padding:80px 0;background:var(--ivory);}
+  .faq-inner{max-width:1280px;margin:0 auto;padding:0 40px;}
+  .faq-header{text-align:center;margin-bottom:52px;}
+  .faq-tag{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block;}
+  .faq-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:500;color:var(--charcoal);}
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:0;}
+  .faq-item{border-bottom:1px solid var(--border);}
+  .faq-question{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;transition:color .2s;}
+  .faq-question:hover .faq-q-text{color:var(--gold);}
+  .faq-q-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--charcoal);transition:color .2s;line-height:1.3;}
+  .faq-toggle{width:28px;height:28px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--taupe);transition:all .3s;}
+  .faq-item.open .faq-toggle{background:var(--gold);border-color:var(--gold);color:var(--white);transform:rotate(45deg);}
+  .faq-answer{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
+  .faq-answer-inner{font-size:.875rem;line-height:1.75;color:var(--taupe);padding-bottom:20px;}
+  .faq-item.open .faq-answer{max-height:300px;}
+
+  /* ── FOOTER ── */
+  footer{background:var(--dark);color:rgba(255,255,255,.7);padding:72px 40px 32px;}
+  .footer-inner{max-width:1280px;margin:0 auto;}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1.5fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px;}
+  .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;color:var(--white);text-decoration:none;}
+  .footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;}
+  .footer-tagline{font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.4);margin-bottom:24px;}
+  .footer-social{display:flex;gap:12px;}
+  .social-link{width:36px;height:36px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;font-size:.8rem;transition:all .2s;}
+  .social-link:hover{border-color:var(--gold);color:var(--gold);}
+  .footer-col-title{font-size:.72rem;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+  .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .footer-links a{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-links a:hover{color:var(--gold);}
+  .footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;}
+  .footer-contact-item svg{width:16px;height:16px;color:var(--gold);margin-top:2px;flex-shrink:0;}
+  .footer-contact-item a,.footer-contact-item span{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-contact-item a:hover{color:var(--gold);}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;}
+  .footer-copy{font-size:.76rem;color:rgba(255,255,255,.3);}
+  .footer-credit{font-size:.76rem;color:rgba(255,255,255,.2);letter-spacing:.06em;}
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .hero-inner>*{animation:fadeUp .7s ease both;}
+  .hero-inner>*:nth-child(1){animation-delay:.1s;}
+  .hero-inner>*:nth-child(2){animation-delay:.25s;}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1024px){
+    .hero-inner{grid-template-columns:1fr;}
+    .contact-body{grid-template-columns:1fr;}
+    .contact-sidebar{position:static;}
+    .footer-top{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    .header-inner{padding:0 20px;}
+    nav{display:none;}
+    .contact-body{padding:48px 20px;}
+    .form-row{grid-template-columns:1fr;}
+    .service-selector{grid-template-columns:1fr 1fr;}
+    .map-inner,.faq-inner{padding:48px 20px;}
+    .footer-top{grid-template-columns:1fr;gap:32px;}
+    .form-submit{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/>
+        <rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/>
+        <path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/>
+        <rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/>
+      </svg>
+      <span class="logo-text">LabourLaw.ge</span>
+    </a>
+        <nav>
+      <a href="index.html">მთავარი</a>
+      <a href="momsakhureba.html">მომსახურება</a>
+      <a href="blogi.html">ბლოგი</a>
+      <a href="resursebi.html">რესურსები</a>
+      <a href="chems-shesakheb.html">ჩემს შესახებ</a>
+      <a href="kontaqti.html" class="active">კონტაქტი</a>
+    </nav>
+    <a href="kontaqti.html" class="btn-primary">კონსულტაცია</a>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="index.html">მთავარი</a>
+        <span>/</span>
+        <span class="breadcrumb-current">კონტაქტი</span>
+      </div>
+      <div class="hero-tag">დაგვიკავშირდით</div>
+      <h1 class="page-hero-title">
+        ვართ<br><em>თქვენთვის</em>
+      </h1>
+      <p class="page-hero-desc">პირველი ნაბიჯი ყოველთვის ყველაზე მნიშვნელოვანია. მოგვწერეთ ან დაგვირეკეთ — პასუხი 24 საათის განმავლობაში.</p>
+    </div>
+    <div>
+      <div class="quick-contacts">
+        <a href="tel:+995555123456" class="qc-item">
+          <div class="qc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.12 2.38 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <span class="qc-label">ტელეფონი</span>
+            <span class="qc-value">+995 555 123 456</span>
+          </div>
+          <svg class="qc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="mailto:info@labourlaw.ge" class="qc-item">
+          <div class="qc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <span class="qc-label">ელფოსტა</span>
+            <span class="qc-value">info@labourlaw.ge</span>
+          </div>
+          <svg class="qc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://wa.me/995555123456" class="qc-item">
+          <div class="qc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </div>
+          <div>
+            <span class="qc-label">WhatsApp</span>
+            <span class="qc-value">სწრაფი შეტყობინება</span>
+          </div>
+          <svg class="qc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#" class="qc-item">
+          <div class="qc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <span class="qc-label">მისამართი</span>
+            <span class="qc-value">თბილისი, საქართველო</span>
+          </div>
+          <svg class="qc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-gold-line"></div>
+</section>
+
+<!-- MAIN BODY -->
+<div class="contact-body">
+
+  <!-- LEFT: FORM -->
+  <div class="form-section">
+    <span class="form-intro-tag">კონსულტაციის მოთხოვნა</span>
+    <h2 class="form-intro-title">გამოგვიგზავნეთ შეტყობინება</h2>
+    <p class="form-intro-desc">შეავსეთ ფორმა — დეტალურად აღწერეთ სიტუაცია. ვუპასუხებ 24 საათში, სამუშაო დღეებში.</p>
+
+    <!-- Service type -->
+    <div style="margin-bottom:8px;">
+      <div class="form-label" style="margin-bottom:12px;">მომსახურების სახე</div>
+      <div class="service-selector">
+        <button class="svc-btn selected" onclick="selectSvc(this)">შრომითი დავა</button>
+        <button class="svc-btn" onclick="selectSvc(this)">ხელშეკრულება</button>
+        <button class="svc-btn" onclick="selectSvc(this)">კონსულტაცია</button>
+        <button class="svc-btn" onclick="selectSvc(this)">სასამართლო</button>
+        <button class="svc-btn" onclick="selectSvc(this)">HR / კომპანია</button>
+        <button class="svc-btn" onclick="selectSvc(this)">სხვა</button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form class="form" id="contactForm" onsubmit="submitForm(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fname">სახელი *</label>
+          <input class="form-input" type="text" id="fname" placeholder="თქვენი სახელი" required>
+          <span class="form-error-msg" id="fname-err">გთხოვთ, შეიყვანოთ სახელი</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lname">გვარი *</label>
+          <input class="form-input" type="text" id="lname" placeholder="თქვენი გვარი" required>
+          <span class="form-error-msg" id="lname-err">გთხოვთ, შეიყვანოთ გვარი</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="email">ელფოსტა *</label>
+          <input class="form-input" type="email" id="email" placeholder="email@example.com" required>
+          <span class="form-error-msg" id="email-err">შეიყვანეთ სწორი ელფოსტა</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">ტელეფონი</label>
+          <input class="form-input" type="tel" id="phone" placeholder="+995 5XX XXX XXX">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="who">ვინ ხართ *</label>
+          <select class="form-select" id="who" required>
+            <option value="" disabled selected>აირჩიეთ...</option>
+            <option value="employee">დასაქმებული</option>
+            <option value="employer">დამსაქმებელი / კომპანია</option>
+            <option value="hr">HR სპეციალისტი</option>
+            <option value="other">სხვა</option>
+          </select>
+          <span class="form-error-msg" id="who-err">გთხოვთ, აირჩიოთ</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="urgency">სასწრაფოობა</label>
+          <select class="form-select" id="urgency">
+            <option value="" disabled selected>აირჩიეთ...</option>
+            <option value="asap">სასწრაფოდ (24 სთ)</option>
+            <option value="week">1 კვირაში</option>
+            <option value="flexible">მოქნილი</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="subject">სათაური *</label>
+        <input class="form-input" type="text" id="subject" placeholder="მოკლე აღწერა (მაგ: „უკანონო გათავისუფლება")" required>
+        <span class="form-error-msg" id="subject-err">გთხოვთ, შეიყვანოთ სათაური</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message">შეტყობინება *</label>
+        <textarea class="form-textarea" id="message" placeholder="დეტალურად აღწერეთ თქვენი სიტუაცია — რაც უფრო ვრცლად, მით უფრო სწრაფად შეძლებ სწორი კონსულტაციის გაწევას..." required></textarea>
+        <span class="form-error-msg" id="message-err">გთხოვთ, შეიყვანოთ შეტყობინება</span>
+      </div>
+      <label class="form-check">
+        <input class="form-check-input" type="checkbox" id="privacy" required>
+        <span class="form-check-label">ვეთანხმები <a href="#">კონფიდენციალურობის პოლიტიკას</a> და ვთანხმდები, რომ ჩემი მონაცემები გამოყენებულ იქნეს მხოლოდ კონსულტაციის მიზნებისთვის.</span>
+      </label>
+      <div class="form-submit">
+        <button type="submit" class="btn-submit" id="submitBtn">
+          შეტყობინების გაგზავნა
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <span class="form-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          პასუხი 24 საათში
+        </span>
+      </div>
+    </form>
+
+    <!-- Success message -->
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon">✓</div>
+      <div class="success-title">შეტყობინება გაიგზავნა!</div>
+      <p class="success-desc">გმადლობთ. თქვენი შეტყობინება მიღებულია — 24 საათის განმავლობაში დაგიკავშირდებით.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT: SIDEBAR -->
+  <aside class="contact-sidebar">
+
+    <!-- Contact info -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">საკონტაქტო ინფო</div>
+      <div class="contact-info-list">
+        <a href="tel:+995555123456" class="ci-item">
+          <div class="ci-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.12 2.38 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <span class="ci-label">ტელეფონი</span>
+            <span class="ci-value">+995 555 123 456</span>
+          </div>
+        </a>
+        <a href="mailto:info@labourlaw.ge" class="ci-item">
+          <div class="ci-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <span class="ci-label">ელფოსტა</span>
+            <span class="ci-value">info@labourlaw.ge</span>
+          </div>
+        </a>
+        <a href="https://wa.me/995555123456" class="ci-item">
+          <div class="ci-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </div>
+          <div>
+            <span class="ci-label">WhatsApp</span>
+            <span class="ci-value">+995 555 123 456</span>
+          </div>
+        </a>
+        <div class="ci-item">
+          <div class="ci-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <span class="ci-label">მისამართი</span>
+            <span class="ci-value">თბილისი, საქართველო</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hours -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">სამუშაო საათები</div>
+      <div class="hours-badge">
+        <span class="hours-badge-dot"></span>
+        <span class="hours-badge-text">ახლა ღიაა</span>
+      </div>
+      <div class="hours-list">
+        <div class="hours-item">
+          <span class="hours-day">ორშაბათი</span>
+          <span class="hours-time">10:00 – 18:00</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-day">სამშაბათი</span>
+          <span class="hours-time">10:00 – 18:00</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-day">ოთხშაბათი</span>
+          <span class="hours-time">10:00 – 18:00</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-day">ხუთშაბათი</span>
+          <span class="hours-time">10:00 – 18:00</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-day">პარასკევი</span>
+          <span class="hours-time">10:00 – 17:00</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-day">შაბათი</span>
+          <span class="hours-closed">დახურულია</span>
+        </div>
+        <div class="hours-item">
+          <span class="hours-day">კვირა</span>
+          <span class="hours-closed">დახურულია</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">სოციალური ქსელები</div>
+      <div class="social-list">
+        <a href="#" class="soc-link" title="Facebook">f</a>
+        <a href="#" class="soc-link" title="LinkedIn">in</a>
+        <a href="#" class="soc-link" title="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Dark CTA -->
+    <div class="sidebar-card sidebar-card-dark">
+      <div class="sidebar-card-title">სასწრაფო კონსულტაცია</div>
+      <p class="dark-card-text">თუ სიტუაცია სასწრაფოა — პირდაპირ დარეკეთ. ვუპასუხებ სამუშაო საათებში.</p>
+      <a href="tel:+995555123456" class="btn-gold-full">
+        📞 +995 555 123 456
+      </a>
+    </div>
+
+  </aside>
+</div>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="map-inner">
+    <div class="map-header">
+      <div>
+        <span class="map-tag">მდებარეობა</span>
+        <div class="map-title">ოფისი თბილისში</div>
+        <div class="map-address" style="margin-top:6px;">თბილისი, საქართველო · პირისპირ შეხვედრა — ღია ყოველდღე</div>
+      </div>
+    </div>
+    <div class="map-frame">
+      <div class="map-grid"></div>
+      <div class="map-placeholder">
+        <div class="map-pin">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="map-pin-label">LabourLaw.ge</div>
+        <div class="map-pin-sub">თბილისი, საქართველო</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <span class="faq-tag">ხშირად დასმული კითხვები</span>
+      <h2 class="faq-title">გვეკითხებიან ხოლმე</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-q-text">პირველი კონსულტაცია ფასიანია?</span>
+          <div class="faq-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">პირველადი შეფასება — საქმის ზოგადი ანალიზი — უფასოა. ამ ეტაპზე ვხვდებით, გვქონდა თუ არა სამართლებრივი საფუძველი და რა გზებია შესაძლებელი. გამწვავებული კონსულტაციის, ანალიზის და წარმომადგენლობის ფასი ინდივიდუალურად შეთანხმდება.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-q-text">რამდენ ხანში ვიღებ პასუხს?</span>
+          <div class="faq-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">ელფოსტითა და ფორმით მოსულ შეტყობინებებს ვუპასუხებ 24 საათის განმავლობაში, სამუშაო დღეებში. სასწრაფო საქმეებზე — პირდაპირ ტელეფონით დამირეკეთ.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-q-text">ონლაინ კონსულტაცია შესაძლებელია?</span>
+          <div class="faq-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">დიახ — კონსულტაცია ხელმისაწვდომია ონლაინ ფორმატში (Zoom, Google Meet), ტელეფონით ან პირისპირ. კლიენტი ირჩევს ფორმატს. მდებარეობა არ არის შეზღუდვა.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-q-text">საიდუმლოება გარანტირებულია?</span>
+          <div class="faq-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">სრული კონფიდენციალურობა — ეს ადვოკატის ეთიკური ვალდებულებაა და კანონით გარანტირებული. თქვენი ინფორმაცია არ გაიხსნება მესამე მხარისთვის.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-q-text">მხოლოდ ფიზიკურ პირებს ემსახურებით?</span>
+          <div class="faq-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">არა. ვემსახურები ორივეს — ინდივიდუალური კლიენტები (დასაქმებულები) და კომპანიები (HR, დამსაქმებლები, ბიზნესი). კომპანიებისთვის ასევე ხელმისაწვდომია აბონენტური მომსახურება.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-q-text">თუ სასამართლო წარმომადგენლობა მჭირდება, ეს ჩვენი თანამშრომლობის ნაწილია?</span>
+          <div class="faq-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">დიახ. კონსულტაციიდან სასამართლო წარმომადგენლობამდე — ყველა ეტაპი ჩართულია. ცალკე სტრუქტურა, ცალკე შეთანხმება — მაგრამ ერთი პარტნიორი.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/><rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/><path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/><rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/></svg>
+          <span class="footer-logo-text">LabourLaw.ge</span>
+        </a>
+        <p class="footer-tagline">შრომის სამართლის სფეროში პროფესიონალური იურიდიული მხარდაჭერა ფიზიკური პირებისა და კომპანიებისათვის.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">✓</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">მომსახურება</div>
+        <ul class="footer-links">
+          <li><a href="momsakhureba.html#s1">შრომითი დავები</a></li>
+          <li><a href="momsakhureba.html#s2">ხელშეკრულებები</a></li>
+          <li><a href="momsakhureba.html#s3">კონსულტაცია</a></li>
+          <li><a href="momsakhureba.html#s4">სასამართლო</a></li>
+          <li><a href="momsakhureba.html#s5">HR სამართალი</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">რესურსები</div>
+        <ul class="footer-links">
+          <li><a href="resursebi.html#legislation">კანონმდებლობა</a></li>
+          <li><a href="resursebi.html#publications">პუბლიკაციები</a></li>
+          <li><a href="resursebi.html#templates">ნიმუშები</a></li>
+          <li><a href="blogi.html">ბლოგი</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">კონტაქტი</div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.12 2.38 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <a href="tel:+995555123456">+995 555 123 456</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:info@labourlaw.ge">info@labourlaw.ge</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>თბილისი, საქართველო</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">ნავიგაცია</div>
+        <ul class="footer-links">
+          <li><a href="index.html">მთავარი</a></li>
+          <li><a href="blogi.html">ბლოგი</a></li>
+          <li><a href="chems-shesakheb.html">ჩემს შესახებ</a></li>
+          <li><a href="kontaqti.html">კონტაქტი</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 LabourLaw.ge. ყველა უფლება დაცულია.</span>
+      <span class="footer-credit">WEB DEVELOPMENT BY YOUR STUDIO</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Service selector
+  function selectSvc(btn) {
+    document.querySelectorAll('.svc-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Form validation & submit
+  function submitForm(e) {
+    e.preventDefault();
+    let valid = true;
+
+    const fields = [
+      { id: 'fname', errId: 'fname-err' },
+      { id: 'lname', errId: 'lname-err' },
+      { id: 'email', errId: 'email-err', type: 'email' },
+      { id: 'who',   errId: 'who-err' },
+      { id: 'subject', errId: 'subject-err' },
+      { id: 'message', errId: 'message-err' },
+    ];
+
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      const err = document.getElementById(f.errId);
+      let fieldValid = el.value.trim() !== '';
+      if (f.type === 'email') {
+        fieldValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      }
+      if (!fieldValid) {
+        el.classList.add('error');
+        err.classList.add('visible');
+        valid = false;
+      } else {
+        el.classList.remove('error');
+        err.classList.remove('visible');
+      }
+    });
+
+    if (!document.getElementById('privacy').checked) {
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    // Simulate submit
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = 'იგზავნება... <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+
+    setTimeout(() => {
+      document.getElementById('contactForm').style.display = 'none';
+      document.querySelector('.form-intro-tag').style.display = 'none';
+      document.querySelector('.form-intro-title').style.display = 'none';
+      document.querySelector('.form-intro-desc').style.display = 'none';
+      document.querySelector('.service-selector').parentElement.style.display = 'none';
+      document.getElementById('successMsg').classList.add('visible');
+    }, 1200);
+  }
+
+  // Real-time validation clear
+  document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => {
+    el.addEventListener('input', function() {
+      this.classList.remove('error');
+      const errEl = document.getElementById(this.id + '-err');
+      if (errEl) errEl.classList.remove('visible');
+    });
+  });
+
+  // Update hours badge based on current time
+  function updateHoursBadge() {
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun, 1=Mon ... 5=Fri, 6=Sat
+    const hour = now.getHours();
+    const badge = document.querySelector('.hours-badge');
+    const dot = document.querySelector('.hours-badge-dot');
+    const text = document.querySelector('.hours-badge-text');
+    const isOpen = day >= 1 && day <= 5 && hour >= 10 && (day === 5 ? hour < 17 : hour < 18);
+    if (!isOpen) {
+      dot.style.background = '#C0392B';
+      dot.style.animation = 'none';
+      text.style.color = '#C0392B';
+      text.textContent = 'ახლა დახურულია';
+    }
+  }
+  updateHoursBadge();
+</script>
+</body>
+</html>

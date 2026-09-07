@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>მომსახურება — LabourLaw.ge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:   #F7F3EC;
+    --white:   #FFFFFF;
+    --charcoal:#222222;
+    --gold:    #B89A52;
+    --gold-lt: #C9AD6A;
+    --taupe:   #8A7D6A;
+    --border:  #E8E1D6;
+    --dark:    #1C1A17;
+    --ivory-dk:#EDE6D9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--charcoal);overflow-x:hidden;}
+
+  /* ── HEADER ── */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,243,236,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--charcoal);}
+  .logo-text{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:.02em;}
+  nav{display:flex;align-items:center;gap:36px;}
+  nav a{font-size:.875rem;font-weight:400;letter-spacing:.04em;color:var(--charcoal);text-decoration:none;transition:color .2s;position:relative;}
+  nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .25s;}
+  nav a:hover{color:var(--gold);}
+  nav a:hover::after,nav a.active::after{width:100%;}
+  nav a.active{color:var(--gold);}
+  .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-decoration:none;border:none;cursor:pointer;transition:background .25s,transform .15s;}
+  .btn-primary:hover{background:var(--gold-lt);transform:translateY(-1px);}
+
+  /* ── PAGE HERO ── */
+  .page-hero{padding-top:68px;background:var(--charcoal);position:relative;overflow:hidden;}
+  .page-hero-pattern{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px);}
+  .page-hero-inner{max-width:1280px;margin:0 auto;padding:72px 40px 80px;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;align-items:end;gap:40px;}
+  .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+  .breadcrumb a{font-size:.75rem;letter-spacing:.08em;color:rgba(255,255,255,.4);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+  .breadcrumb a:hover{color:var(--gold);}
+  .breadcrumb span{font-size:.75rem;color:rgba(255,255,255,.2);}
+  .breadcrumb-current{font-size:.75rem;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;}
+  .page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:500;color:var(--white);line-height:1.1;margin-bottom:20px;}
+  .page-hero-title em{font-style:italic;color:var(--gold);}
+  .page-hero-desc{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.55);max-width:560px;}
+  .page-hero-badge{text-align:right;}
+  .hero-stat{display:inline-block;padding:24px 32px;border:1px solid rgba(184,154,82,.25);background:rgba(184,154,82,.05);}
+  .hero-stat-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--gold);line-height:1;display:block;}
+  .hero-stat-label{font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:6px;display:block;}
+  .hero-gold-line{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:40px;}
+
+  /* ── SERVICES NAV TABS ── */
+  .services-nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:68px;z-index:90;}
+  .services-nav-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;gap:0;overflow-x:auto;}
+  .services-nav-inner::-webkit-scrollbar{display:none;}
+  .snav-item{padding:18px 24px;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--taupe);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;cursor:pointer;}
+  .snav-item:hover{color:var(--charcoal);}
+  .snav-item.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+  /* ── SERVICE SECTIONS ── */
+  .service-section{padding:100px 0;position:relative;}
+  .service-section:nth-child(even){background:var(--white);}
+  .service-section:nth-child(odd){background:var(--ivory);}
+  .service-inner{max-width:1280px;margin:0 auto;padding:0 40px;}
+
+  /* Layout: text left, details right */
+  .service-layout{display:grid;grid-template-columns:5fr 4fr;gap:80px;align-items:start;}
+  .service-layout.reverse{grid-template-columns:4fr 5fr;}
+  .service-layout.reverse .service-main{order:2;}
+  .service-layout.reverse .service-aside{order:1;}
+
+  /* Section number */
+  .service-num{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;color:var(--border);line-height:1;margin-bottom:-16px;display:block;}
+  .service-tag{font-size:.72rem;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:block;}
+  .service-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:500;color:var(--charcoal);line-height:1.2;margin-bottom:20px;}
+  .service-divider{width:48px;height:2px;background:var(--gold);margin-bottom:24px;}
+  .service-text{font-size:.95rem;line-height:1.8;color:var(--taupe);margin-bottom:32px;}
+  .service-cta{display:inline-flex;align-items:center;gap:10px;padding:13px 28px;background:var(--gold);color:var(--white);font-size:.82rem;font-weight:500;letter-spacing:.06em;text-decoration:none;transition:all .25s;}
+  .service-cta:hover{background:var(--gold-lt);transform:translateY(-2px);}
+
+  /* Aside: what's included card */
+  .service-card-box{background:var(--white);border:1px solid var(--border);padding:36px;}
+  .service-section:nth-child(even) .service-card-box{background:var(--ivory);}
+  .box-title{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+  .box-title::after{content:'';flex:1;height:1px;background:var(--border);}
+  .checklist{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+  .checklist li{display:flex;align-items:flex-start;gap:12px;font-size:.875rem;line-height:1.5;color:var(--charcoal);}
+  .checklist li::before{content:'';width:18px;height:18px;border:1.5px solid var(--gold);background:transparent;flex-shrink:0;margin-top:1px;position:relative;}
+  .checklist li.checked::before{background:var(--gold);}
+  .checklist li.checked::after{content:'✓';position:absolute;color:var(--white);font-size:.65rem;margin-top:-17px;margin-left:3px;}
+
+  /* Process steps */
+  .process-steps{display:flex;flex-direction:column;gap:0;}
+  .process-step{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border);}
+  .process-step:last-child{border-bottom:none;}
+  .step-num{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--gold);line-height:1;flex-shrink:0;width:32px;}
+  .step-content{}
+  .step-title{font-size:.875rem;font-weight:600;color:var(--charcoal);margin-bottom:4px;}
+  .step-desc{font-size:.8rem;line-height:1.55;color:var(--taupe);}
+
+  /* Why us card */
+  .why-box{background:var(--charcoal);padding:32px;color:var(--white);}
+  .why-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--gold);margin-bottom:20px;}
+  .why-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .why-list li{display:flex;align-items:center;gap:10px;font-size:.83rem;color:rgba(255,255,255,.7);}
+  .why-list li::before{content:'—';color:var(--gold);font-size:.9rem;}
+
+  /* Consultation types */
+  .consult-types{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+  .consult-type{padding:20px;border:1px solid var(--border);background:var(--ivory);text-align:center;transition:all .25s;}
+  .service-section:nth-child(even) .consult-type{background:var(--white);}
+  .consult-type:hover{border-color:var(--gold);transform:translateY(-2px);}
+  .consult-icon{font-size:1.6rem;margin-bottom:10px;display:block;}
+  .consult-name{font-size:.82rem;font-weight:500;color:var(--charcoal);}
+  .consult-sub{font-size:.75rem;color:var(--taupe);margin-top:4px;}
+
+  /* Pricing hint */
+  .price-note{display:flex;align-items:center;gap:12px;padding:16px 20px;background:rgba(184,154,82,.08);border-left:3px solid var(--gold);font-size:.83rem;color:var(--taupe);}
+  .price-note strong{color:var(--gold);}
+
+  /* ── ALL SERVICES OVERVIEW ── */
+  .overview-strip{background:var(--dark);padding:80px 0;}
+  .overview-inner{max-width:1280px;margin:0 auto;padding:0 40px;}
+  .overview-header{text-align:center;margin-bottom:56px;}
+  .overview-tag{display:inline-block;font-size:.72rem;font-weight:500;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+  .overview-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:500;color:var(--white);}
+  .overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);}
+  .overview-item{padding:32px;background:var(--dark);display:flex;align-items:center;gap:16px;transition:background .25s;cursor:pointer;text-decoration:none;}
+  .overview-item:hover{background:rgba(184,154,82,.08);}
+  .ov-icon{width:44px;height:44px;color:var(--gold);flex-shrink:0;}
+  .ov-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:500;color:var(--white);margin-bottom:4px;}
+  .ov-arrow{margin-left:auto;color:var(--gold);font-size:.8rem;opacity:0;transition:opacity .2s,transform .2s;}
+  .overview-item:hover .ov-arrow{opacity:1;transform:translateX(4px);}
+
+  /* ── CTA BANNER ── */
+  .cta-banner{background:linear-gradient(135deg,var(--charcoal) 0%,#2C2A25 100%);padding:80px 40px;position:relative;overflow:hidden;}
+  .cta-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23B89A52' fill-opacity='0.04'%3E%3Cpath d='M40 40L0 0v80l40-40zm0 0l40 40V0L40 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+  .cta-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;z-index:2;}
+  .cta-text{}
+  .cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:500;color:var(--white);margin-bottom:10px;}
+  .cta-desc{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.6;}
+  .btn-gold{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:.875rem;font-weight:500;letter-spacing:.06em;text-decoration:none;transition:all .25s;flex-shrink:0;white-space:nowrap;}
+  .btn-gold:hover{background:var(--gold-lt);transform:translateY(-1px);}
+
+  /* ── FOOTER ── */
+  footer{background:var(--dark);color:rgba(255,255,255,.7);padding:72px 40px 32px;}
+  .footer-inner{max-width:1280px;margin:0 auto;}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1.5fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px;}
+  .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;color:var(--white);text-decoration:none;}
+  .footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;}
+  .footer-tagline{font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.4);margin-bottom:24px;}
+  .footer-social{display:flex;gap:12px;}
+  .social-link{width:36px;height:36px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;font-size:.8rem;transition:all .2s;}
+  .social-link:hover{border-color:var(--gold);color:var(--gold);}
+  .footer-col-title{font-size:.72rem;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+  .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .footer-links a{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-links a:hover{color:var(--gold);}
+  .footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;}
+  .footer-contact-item svg{width:16px;height:16px;color:var(--gold);margin-top:2px;flex-shrink:0;}
+  .footer-contact-item a,.footer-contact-item span{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-contact-item a:hover{color:var(--gold);}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;}
+  .footer-copy{font-size:.76rem;color:rgba(255,255,255,.3);}
+  .footer-credit{font-size:.76rem;color:rgba(255,255,255,.2);letter-spacing:.06em;}
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .page-hero-inner>*{animation:fadeUp .7s ease both;}
+  .page-hero-inner>*:nth-child(1){animation-delay:.1s;}
+  .page-hero-inner>*:nth-child(2){animation-delay:.25s;}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1024px){
+    .service-layout,.service-layout.reverse{grid-template-columns:1fr;}
+    .service-layout.reverse .service-main{order:1;}
+    .service-layout.reverse .service-aside{order:2;}
+    .overview-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-top{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    .header-inner{padding:0 20px;}
+    nav{display:none;}
+    .page-hero-inner{grid-template-columns:1fr;padding:48px 20px 60px;}
+    .hero-stat{display:none;}
+    .service-inner{padding:0 20px;}
+    .consult-types{grid-template-columns:1fr;}
+    .overview-grid{grid-template-columns:1fr;}
+    .cta-inner{flex-direction:column;text-align:center;}
+    .footer-top{grid-template-columns:1fr;gap:32px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/>
+        <rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/>
+        <path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/>
+        <rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/>
+      </svg>
+      <span class="logo-text">LabourLaw.ge</span>
+    </a>
+        <nav>
+      <a href="index.html">მთავარი</a>
+      <a href="momsakhureba.html" class="active">მომსახურება</a>
+      <a href="blogi.html">ბლოგი</a>
+      <a href="resursebi.html">რესურსები</a>
+      <a href="chems-shesakheb.html">ჩემს შესახებ</a>
+      <a href="kontaqti.html">კონტაქტი</a>
+    </nav>
+    <a href="kontaqti.html" class="btn-primary">კონსულტაცია</a>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-pattern"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="index.html">მთავარი</a>
+        <span>/</span>
+        <span class="breadcrumb-current">მომსახურება</span>
+      </div>
+      <h1 class="page-hero-title">
+        რაში შემიძლია<br>
+        <em>დაგეხმაროთ</em>
+      </h1>
+      <p class="page-hero-desc">დასაქმებულებისთვის, დამსაქმებლებისთვის და ბიზნესისთვის პრაქტიკული, სწრაფი და შედეგზე ორიენტირებული სამართლებრივი დახმარება.<br><br>თუ გჭირდებათ კონსულტაცია, დავის გადაწყვეტა ან შიდა პროცესების მოწესრიგება — მზად ვარ დაგეხმაროთ.</p>
+    </div>
+    <div class="page-hero-badge">
+      <div class="hero-stat">
+        <span class="hero-stat-num">6</span>
+        <span class="hero-stat-label">სამართლებრივი სერვისი</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-gold-line"></div>
+</section>
+
+<!-- SERVICES STICKY NAV -->
+<nav class="services-nav">
+  <div class="services-nav-inner">
+    <a href="#s1" class="snav-item active">შრომითი დავები</a>
+    <a href="#s2" class="snav-item">ხელშეკრულებები</a>
+    <a href="#s3" class="snav-item">კონსულტაცია</a>
+    <a href="#s4" class="snav-item">სასამართლო</a>
+    <a href="#s5" class="snav-item">HR მხარდაჭერა</a>
+    <a href="#s6" class="snav-item">აბონენტური</a>
+  </div>
+</nav>
+
+<!-- S1: შრომითი დავები -->
+<section class="service-section" id="s1">
+  <div class="service-inner">
+    <div class="service-layout">
+      <div class="service-main">
+        <span class="service-num">01</span>
+        <span class="service-tag">ფიზიკური პირებისა და კომპანიებისთვის</span>
+        <h2 class="service-title">შრომითი დავები</h2>
+        <div class="service-divider"></div>
+        <p class="service-text">შრომითი დავები ხშირად მოითხოვს სწრაფ რეაგირებას, სწორ სტრატეგიას და პროფესიონალურ წარმომადგენლობას.</p>
+        <p class="service-text">თითოეული საქმე ინდივიდუალურად ფასდება და იგეგმება საუკეთესო სამართლებრივი გზა.</p>
+        <a href="#contact" class="service-cta">კონსულტაციის მიღება →</a>
+      </div>
+      <div class="service-aside">
+        <div class="service-card-box">
+          <div class="box-title">რაში გეხმარებით</div>
+          <ul class="checklist">
+            <li class="checked">უკანონო გათავისუფლების დავა</li>
+            <li class="checked">ხელფასის დავალიანება</li>
+            <li class="checked">დისციპლინური სანქციები</li>
+            <li class="checked">კომპენსაციის მოთხოვნა</li>
+            <li class="checked">შრომითი ხელშეკრულების დარღვევა</li>
+            <li class="checked">ზეგანაკვეთური ანაზღაურება</li>
+          </ul>
+          <div class="price-note">
+            <strong>⚖</strong>
+            პირველადი კონსულტაცია — საქმის შეფასება უფასოა
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="why-box">
+            <div class="why-title">რატომ ჩვენთან</div>
+            <ul class="why-list">
+              <li>შრომის სამართალზე სპეციალიზაცია</li>
+              <li>სტრატეგიული მიდგომა</li>
+              <li>კონფიდენციალურობა</li>
+              <li>შედეგზე ორიენტირება</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process -->
+    <div style="margin-top:60px;max-width:560px;">
+      <div class="box-title" style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0;display:flex;align-items:center;gap:10px;">პროცესი<span style="flex:1;height:1px;background:var(--border);display:block;"></span></div>
+      <div class="process-steps" style="margin-top:0;">
+        <div class="process-step">
+          <span class="step-num">1</span>
+          <div class="step-content">
+            <div class="step-title">საქმის შეფასება</div>
+            <div class="step-desc">სიტუაციის სრული ანალიზი, სამართლებრივი რისკების განსაზღვრა</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="step-num">2</span>
+          <div class="step-content">
+            <div class="step-title">დოკუმენტების ანალიზი</div>
+            <div class="step-desc">ხელშეკრულებების, ბრძანებების და სხვა მტკიცებულებების გადამოწმება</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="step-num">3</span>
+          <div class="step-content">
+            <div class="step-title">სტრატეგიის განსაზღვრა</div>
+            <div class="step-desc">მოლაპარაკება, მედიაცია ან სასამართლო — საუკეთესო გზის შერჩევა</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="step-num">4</span>
+          <div class="step-content">
+            <div class="step-title">წარმომადგენლობა</div>
+            <div class="step-desc">სრული მხარდაჭერა პროცესის ყველა ეტაპზე საბოლოო შედეგამდე</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S2: ხელშეკრულებების შედგენა -->
+<section class="service-section" id="s2">
+  <div class="service-inner">
+    <div class="service-layout reverse">
+      <div class="service-main">
+        <span class="service-num">02</span>
+        <span class="service-tag">დასაქმებულებისთვის და დამსაქმებლებისთვის</span>
+        <h2 class="service-title">ხელშეკრულებების შედგენა / ანალიზი</h2>
+        <div class="service-divider"></div>
+        <p class="service-text">სწორად შედგენილი ხელშეკრულება თავიდან აგარიდებთ მომავალ დავებს და იცავს ორივე მხარის ინტერესებს.</p>
+        <a href="#contact" class="service-cta">ხელშეკრულების ანალიზი →</a>
+      </div>
+      <div class="service-aside">
+        <div class="service-card-box">
+          <div class="box-title">ვის ვემსახურებით</div>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+            <div style="padding:16px 20px;border:1px solid var(--border);background:var(--white);">
+              <div style="font-size:.8rem;font-weight:600;color:var(--charcoal);margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                დასაქმებულისთვის
+              </div>
+              <div style="font-size:.8rem;color:var(--taupe);line-height:1.6;">ახალი ხელშეკრულების მომზადება, გადახედვა, რისკების შეფასება</div>
+            </div>
+            <div style="padding:16px 20px;border:1px solid var(--border);background:var(--white);">
+              <div style="font-size:.8rem;font-weight:600;color:var(--charcoal);margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+                დამსაქმებლისთვის
+              </div>
+              <div style="font-size:.8rem;color:var(--taupe);line-height:1.6;">ახალი ხელშეკრულებების მომზადება, არაკანონიერი პირობების გამოვლენა</div>
+            </div>
+            <div style="padding:16px 20px;border:1px solid var(--border);background:var(--white);">
+              <div style="font-size:.8rem;font-weight:600;color:var(--charcoal);margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                შიდა პოლიტიკები
+              </div>
+              <div style="font-size:.8rem;color:var(--taupe);line-height:1.6;">HR დეპარტამენტებისთვის, ცვლილებების პროექტის მომზადება</div>
+            </div>
+          </div>
+          <div class="price-note"><strong>📋</strong> ხელშეკრულების ანალიზი — 48 საათში</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S3: იურიდიული კონსულტაცია -->
+<section class="service-section" id="s3">
+  <div class="service-inner">
+    <div class="service-layout">
+      <div class="service-main">
+        <span class="service-num">03</span>
+        <span class="service-tag">სწრაფი და პრაქტიკული</span>
+        <h2 class="service-title">იურიდიული კონსულტაცია</h2>
+        <div class="service-divider"></div>
+        <p class="service-text">თუ გაქვთ კონკრეტული კითხვა ან გჭირდებათ სწრაფი სამართლებრივი შეფასება — მიიღებთ მკაფიო და პრაქტიკულ რჩევას.</p>
+        <a href="#contact" class="service-cta">კონსულტაციის დაჯავშნა →</a>
+      </div>
+      <div class="service-aside">
+        <div class="service-card-box">
+          <div class="box-title">კონსულტაციის ფორმატები</div>
+          <div class="consult-types">
+            <div class="consult-type">
+              <span class="consult-icon">💻</span>
+              <div class="consult-name">ონლაინ</div>
+              <div class="consult-sub">Zoom / Meet</div>
+            </div>
+            <div class="consult-type">
+              <span class="consult-icon">🤝</span>
+              <div class="consult-name">პირისპირ</div>
+              <div class="consult-sub">ოფისში</div>
+            </div>
+            <div class="consult-type">
+              <span class="consult-icon">📱</span>
+              <div class="consult-name">ტელეფონი</div>
+              <div class="consult-sub">სწრაფი კითხვა</div>
+            </div>
+            <div class="consult-type">
+              <span class="consult-icon">📄</span>
+              <div class="consult-name">წერილობითი</div>
+              <div class="consult-sub">სამართლებრივი დასკვნა</div>
+            </div>
+          </div>
+          <div class="price-note"><strong>⏱</strong> პასუხი 24 საათის განმავლობაში</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4: სასამართლო წარმომადგენლობა -->
+<section class="service-section" id="s4">
+  <div class="service-inner">
+    <div class="service-layout reverse">
+      <div class="service-main">
+        <span class="service-num">04</span>
+        <span class="service-tag">სასამართლო და მედიაცია</span>
+        <h2 class="service-title">სასამართლო წარმომადგენლობა</h2>
+        <div class="service-divider"></div>
+        <p class="service-text">როდესაც მოლაპარაკება შედეგს ვერ იძლევა, მნიშვნელოვანია ძლიერი სამართლებრივი წარმომადგენლობა.</p>
+        <a href="#contact" class="service-cta">დაგვიკავშირდით →</a>
+      </div>
+      <div class="service-aside">
+        <div class="service-card-box">
+          <div class="box-title">ვწარვადგენთ</div>
+          <ul class="checklist">
+            <li class="checked">საერთო სასამართლოებში</li>
+            <li class="checked">შრომის ინსპექციაში</li>
+            <li class="checked">მედიაციის პროცესში</li>
+            <li class="checked">ადმინისტრაციულ ორგანოებში</li>
+            <li class="checked">სააპელაციო სასამართლოში</li>
+          </ul>
+          <div class="process-steps" style="margin-top:16px;">
+            <div class="process-step" style="padding:12px 0;">
+              <span class="step-num">1</span>
+              <div class="step-content">
+                <div class="step-title">სარჩელის მომზადება</div>
+                <div class="step-desc">სამართლებრივი პოზიციის ჩამოყალიბება</div>
+              </div>
+            </div>
+            <div class="process-step" style="padding:12px 0;">
+              <span class="step-num">2</span>
+              <div class="step-content">
+                <div class="step-title">მტკიცებულებების სრული ანალიზი</div>
+                <div class="step-desc">მყარი სამართლებრივი არგუმენტები</div>
+              </div>
+            </div>
+            <div class="process-step" style="padding:12px 0;border-bottom:none;">
+              <span class="step-num">3</span>
+              <div class="step-content">
+                <div class="step-title">წარმომადგენლობა სხდომაზე</div>
+                <div class="step-desc">გამოცდილი და მზად</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S5: HR სამართლებრივი მხარდაჭერა -->
+<section class="service-section" id="s5">
+  <div class="service-inner">
+    <div class="service-layout">
+      <div class="service-main">
+        <span class="service-num">05</span>
+        <span class="service-tag">კომპანიებისა და ბიზნესისთვის</span>
+        <h2 class="service-title">კომპანიის HR სამართლებრივი მხარდაჭერა</h2>
+        <div class="service-divider"></div>
+        <p class="service-text">ბიზნესს სჭირდება გამართული შიდა პროცედურები, დოკუმენტაცია და სწორი გადაწყვეტილებები თანამშრომლებთან ურთიერთობაში.</p>
+        <a href="#contact" class="service-cta">კომპანიის კონსულტაცია →</a>
+      </div>
+      <div class="service-aside">
+        <div class="service-card-box">
+          <div class="box-title">მოიცავს</div>
+          <ul class="checklist">
+            <li class="checked">შიდა სამართლებრივი რეგულაციები</li>
+            <li class="checked">თანამშრომლების საკითხების მართვა</li>
+            <li class="checked">დისციპლინური პროცედურები</li>
+            <li class="checked">სწორი გათავისუფლების პროცედურა</li>
+            <li class="checked">შრომითი რისკების პრევენცია</li>
+          </ul>
+          <div class="price-note"><strong>🏢</strong> კომპანიების ინდივიდუალური პაკეტი</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S6: აბონენტური მომსახურება -->
+<section class="service-section" id="s6">
+  <div class="service-inner">
+    <div class="service-layout reverse">
+      <div class="service-main">
+        <span class="service-num">06</span>
+        <span class="service-tag">გრძელვადიანი თანამშრომლობა</span>
+        <h2 class="service-title">აბონენტური მომსახურება კომპანიებისთვის</h2>
+        <div class="service-divider"></div>
+        <p class="service-text">თუ კომპანიას რეგულარულად სჭირდება იურიდიული დახმარება შრომით საკითხებში, აბონენტური მომსახურება საუკეთესო გადაწყვეტილებაა.</p>
+        <a href="#contact" class="service-cta">პაკეტი გაიგეთ →</a>
+      </div>
+      <div class="service-aside">
+        <div class="service-card-box">
+          <div class="box-title">რა შედის პაკეტში</div>
+          <ul class="checklist">
+            <li class="checked">ყოველთვიური კონსულტაციები</li>
+            <li class="checked">ხელშეკრულებების გადამოწმება</li>
+            <li class="checked">HR სიტუაციების სამართლებრივი შეფასება</li>
+            <li class="checked">სასამართლო წარმომადგენლობა (შეთანხმებით)</li>
+            <li class="checked">პრიორიტეტული კომუნიკაცია</li>
+          </ul>
+          <div class="price-note"><strong>📅</strong> ყოველთვიური ფიქსირებული გადასახადი</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL SERVICES OVERVIEW -->
+<section class="overview-strip">
+  <div class="overview-inner">
+    <div class="overview-header">
+      <div class="overview-tag">სრული მიმოხილვა</div>
+      <h2 class="overview-title" style="color:var(--white);">ყველა მომსახურება ერთ ადგილას</h2>
+    </div>
+    <div class="overview-grid">
+      <a href="#s1" class="overview-item">
+        <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        <div><div class="ov-name">შრომითი დავები</div><div style="font-size:.75rem;color:rgba(255,255,255,.3);">კონფლიქტების სამართლებრივი გადაჭრა</div></div>
+        <span class="ov-arrow">→</span>
+      </a>
+      <a href="#s2" class="overview-item">
+        <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <div><div class="ov-name">ხელშეკრულებები</div><div style="font-size:.75rem;color:rgba(255,255,255,.3);">შედგენა, ანალიზი, გადახედვა</div></div>
+        <span class="ov-arrow">→</span>
+      </a>
+      <a href="#s3" class="overview-item">
+        <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <div><div class="ov-name">იურიდიული კონსულტაცია</div><div style="font-size:.75rem;color:rgba(255,255,255,.3);">სწრაფი, პრაქტიკული პასუხები</div></div>
+        <span class="ov-arrow">→</span>
+      </a>
+      <a href="#s4" class="overview-item">
+        <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <div><div class="ov-name">სასამართლო წარმომადგენლობა</div><div style="font-size:.75rem;color:rgba(255,255,255,.3);">ინტერესების სრული დაცვა</div></div>
+        <span class="ov-arrow">→</span>
+      </a>
+      <a href="#s5" class="overview-item">
+        <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <div><div class="ov-name">HR მხარდაჭერა</div><div style="font-size:.75rem;color:rgba(255,255,255,.3);">კომპანიის შრომითი პროცესები</div></div>
+        <span class="ov-arrow">→</span>
+      </a>
+      <a href="#s6" class="overview-item">
+        <svg class="ov-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+        <div><div class="ov-name">აბონენტური მომსახურება</div><div style="font-size:.75rem;color:rgba(255,255,255,.3);">მუდმივი იურიდიული მხარდაჭერა</div></div>
+        <span class="ov-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2 class="cta-title">გჭირდებათ დახმარება შრომის სამართალში?</h2>
+      <p class="cta-desc">დღესვე დამიკავშირდით და ერთად ვიპოვოთ საუკეთესო სამართლებრივი გადაწყვეტა.</p>
+    </div>
+    <a href="kontaqti.html" class="btn-gold">დამიკავშირდით →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/><rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/><path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/><rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/></svg>
+          <span class="footer-logo-text">LabourLaw.ge</span>
+        </a>
+        <p class="footer-tagline">შრომის სამართლის სფეროში პროფესიონალური იურიდიული მხარდაჭერა ფიზიკური პირებისა და კომპანიებისათვის.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">✓</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">მომსახურება</div>
+        <ul class="footer-links">
+          <li><a href="#s1">შრომითი დავები</a></li>
+          <li><a href="#s2">ხელშეკრულებები</a></li>
+          <li><a href="#s3">იურიდიული კონსულტაცია</a></li>
+          <li><a href="#s4">სასამართლო წარმომადგენლობა</a></li>
+          <li><a href="#s5">HR სამართალი</a></li>
+          <li><a href="#s6">აბონენტური მომსახურება</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">რესურსები</div>
+        <ul class="footer-links">
+          <li><a href="#">კანონმდებლობა</a></li>
+          <li><a href="#">პუბლიკაციები</a></li>
+          <li><a href="#">ნიმუშები</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">კონტაქტი</div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.12 2.38 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <a href="tel:+995555123456">+995 555 123 456</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:info@labourlaw.ge">info@labourlaw.ge</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>თბილისი, საქართველო</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">სნარად შეასწ</div>
+        <ul class="footer-links">
+          <li><a href="index.html">მთავარი</a></li>
+          <li><a href="#">ბლოგი</a></li>
+          <li><a href="chems-shesakheb.html">ჩემს შესახებ</a></li>
+          <li><a href="kontaqti.html">კონტაქტი</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 LabourLaw.ge. ყველა უფლება დაცულია.</span>
+      <span class="footer-credit">WEB DEVELOPMENT BY YOUR STUDIO</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav active state on scroll
+  const sections = document.querySelectorAll('.service-section');
+  const navItems = document.querySelectorAll('.snav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('href') === '#' + id) {
+            item.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.4, rootMargin: '-80px 0px 0px 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Checklist visual fix
+  document.querySelectorAll('.checklist li.checked').forEach(li => {
+    li.style.position = 'relative';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>არასრულწლოვანთა სეზონური დასაქმება — უფლებები, წესები და რისკები | LabourLaw.ge</title>
+<meta name="description" content="პრაქტიკული გზამკვლევი არასრულწლოვნებისა და მშობლებისთვის: სამუშაო დრო, ანაზღაურება, აკრძალული სამუშაოები და სად მიმართოთ პრობლემის შემთხვევაში.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ivory:#F7F3EC;--white:#fff;--charcoal:#222;--gold:#B89A52;--gold-lt:#C9AD6A;--taupe:#8A7D6A;--border:#E8E1D6;--dark:#1C1A17;}
+  *{margin:0;padding:0;box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--charcoal);overflow-x:hidden;}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,243,236,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--charcoal);}
+  .logo-text{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:.02em;}
+  nav{display:flex;align-items:center;gap:36px;}
+  nav a{font-size:.875rem;color:var(--charcoal);text-decoration:none;transition:color .2s;position:relative;letter-spacing:.04em;}
+  nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .25s;}
+  nav a:hover,nav a.active{color:var(--gold);} nav a:hover::after,nav a.active::after{width:100%;}
+  .btn-primary{display:inline-flex;align-items:center;padding:11px 24px;background:var(--gold);color:#fff;font-family:'Jost',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-decoration:none;transition:background .25s;}
+  .btn-primary:hover{background:var(--gold-lt);}
+
+  /* HERO */
+  .article-hero{padding-top:68px;background:var(--dark);position:relative;overflow:hidden;}
+  .article-hero::before{content:'';position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,var(--gold) 40px,var(--gold) 41px);}
+  .article-hero-inner{max-width:860px;margin:0 auto;padding:64px 40px 72px;position:relative;z-index:2;}
+  .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:24px;}
+  .breadcrumb a{font-size:.75rem;letter-spacing:.08em;color:rgba(255,255,255,.4);text-decoration:none;text-transform:uppercase;}
+  .breadcrumb a:hover{color:var(--gold);}
+  .breadcrumb span{font-size:.75rem;color:rgba(255,255,255,.2);}
+  .breadcrumb-current{font-size:.75rem;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;}
+  .article-cat{display:inline-block;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+  .article-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:500;color:#fff;line-height:1.15;margin-bottom:20px;}
+  .article-meta{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  .article-meta-item{font-size:.78rem;color:rgba(255,255,255,.4);}
+  .hero-gold-line{height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+
+  /* LAYOUT */
+  .article-layout{max-width:1160px;margin:0 auto;padding:72px 40px;display:grid;grid-template-columns:1fr 300px;gap:64px;align-items:start;}
+  .article-intro{font-size:1.1rem;line-height:1.85;color:var(--charcoal);margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--border);}
+
+  /* CONTENT */
+  .article-h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:500;color:var(--charcoal);margin:44px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--gold);display:inline-block;}
+  .article-h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--charcoal);margin:28px 0 10px;}
+  .article-p{font-size:.95rem;line-height:1.85;color:var(--taupe);margin-bottom:16px;}
+  .article-ul{list-style:none;margin:12px 0 20px;display:flex;flex-direction:column;gap:8px;}
+  .article-ul li{font-size:.9rem;line-height:1.6;color:var(--taupe);padding-left:20px;position:relative;}
+  .article-ul li::before{content:'—';position:absolute;left:0;color:var(--gold);}
+  .article-checks{list-style:none;margin:12px 0 20px;display:flex;flex-direction:column;gap:10px;}
+  .article-checks li{font-size:.9rem;line-height:1.6;color:var(--charcoal);display:flex;align-items:flex-start;gap:10px;}
+  .check{color:var(--gold);font-weight:700;flex-shrink:0;}
+  .article-crosses{list-style:none;margin:12px 0 20px;display:flex;flex-direction:column;gap:10px;}
+  .article-crosses li{font-size:.9rem;line-height:1.6;color:var(--taupe);display:flex;align-items:flex-start;gap:10px;}
+  .cross{color:#C0392B;font-weight:700;flex-shrink:0;}
+
+  /* TABLE */
+  .article-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.88rem;}
+  .article-table th{background:var(--charcoal);color:#fff;padding:12px 16px;text-align:left;font-weight:500;letter-spacing:.04em;}
+  .article-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--taupe);line-height:1.6;}
+  .article-table tr:hover td{background:rgba(184,154,82,.04);}
+
+  /* INFO BOX */
+  .info-box{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--gold);padding:24px 28px;margin:24px 0;}
+  .info-box p{font-size:.9rem;line-height:1.7;color:var(--charcoal);}
+  .info-box strong{color:var(--gold);}
+  .warn-box{background:#FFF8F0;border:1px solid #F0D4A0;border-left:4px solid #E09020;padding:24px 28px;margin:24px 0;}
+  .warn-box p{font-size:.9rem;line-height:1.7;color:#7A5010;}
+
+  /* CONCLUSION */
+  .article-conclusion{background:var(--dark);padding:32px;margin-top:48px;}
+  .article-conclusion p{font-size:.95rem;line-height:1.75;color:rgba(255,255,255,.65);margin-bottom:20px;}
+  .btn-gold-sm{display:inline-flex;align-items:center;padding:12px 24px;background:var(--gold);color:#fff;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.05em;text-decoration:none;transition:background .25s;}
+  .btn-gold-sm:hover{background:var(--gold-lt);}
+
+  /* SIDEBAR */
+  .article-sidebar{position:sticky;top:96px;display:flex;flex-direction:column;gap:20px;}
+  .sidebar-box{background:#fff;border:1px solid var(--border);padding:24px;}
+  .sidebar-box-title{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+  .sidebar-related{list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .sidebar-related a{font-size:.83rem;color:var(--charcoal);text-decoration:none;line-height:1.45;transition:color .2s;display:flex;align-items:flex-start;gap:8px;}
+  .sidebar-related a::before{content:'→';color:var(--gold);font-size:.75rem;flex-shrink:0;margin-top:2px;}
+  .sidebar-related a:hover{color:var(--gold);}
+  .sidebar-toc{background:#fff;border:1px solid var(--border);padding:24px;}
+  .toc-item{display:block;font-size:.82rem;color:var(--taupe);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--border);transition:color .2s;}
+  .toc-item:last-child{border-bottom:none;}
+  .toc-item:hover{color:var(--gold);}
+  .sidebar-cta{background:var(--dark);border:none;padding:28px;}
+  .sidebar-cta .sidebar-box-title{color:var(--gold);border-color:rgba(255,255,255,.1);}
+  .sidebar-cta-text{font-size:.83rem;line-height:1.7;color:rgba(255,255,255,.5);margin-bottom:16px;}
+
+  footer{background:var(--dark);padding:40px;}
+  .footer-bottom-simple{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+  .footer-logo{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;}
+  .footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;}
+  .footer-copy{font-size:.76rem;color:rgba(255,255,255,.3);}
+
+  @media(max-width:900px){
+    .article-layout{grid-template-columns:1fr;}
+    .article-sidebar{position:static;}
+    .header-inner{padding:0 20px;} nav{display:none;}
+    .article-layout{padding:48px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/><rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/><path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/><rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/></svg>
+      <span class="logo-text">LabourLaw.ge</span>
+    </a>
+    <nav>
+      <a href="index.html">მთავარი</a>
+      <a href="momsakhureba.html">მომსახურება</a>
+      <a href="blogi.html" class="active">ბლოგი</a>
+      <a href="resursebi.html">რესურსები</a>
+      <a href="chems-shesakheb.html">ჩემს შესახებ</a>
+      <a href="kontaqti.html">კონტაქტი</a>
+    </nav>
+    <a href="kontaqti.html" class="btn-primary">კონსულტაცია</a>
+  </div>
+</header>
+
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">მთავარი</a><span>/</span>
+      <a href="blogi.html">ბლოგი</a><span>/</span>
+      <span class="breadcrumb-current">დასაქმებულის უფლებები</span>
+    </div>
+    <div class="article-cat">დასაქმებულის უფლებები</div>
+    <h1 class="article-title">არასრულწლოვანთა სეზონური დასაქმება:<br>უფლებები, წესები და რისკები</h1>
+    <div class="article-meta">
+      <span class="article-meta-item">📅 2024</span>
+      <span class="article-meta-item">⏱ 12 წუთი</span>
+      <span class="article-meta-item">✍️ ნატო ნათენაძე</span>
+      <span class="article-meta-item">📋 პრაქტიკული გზამკვლევი</span>
+    </div>
+  </div>
+  <div class="hero-gold-line"></div>
+</section>
+
+<div class="article-layout">
+  <article>
+
+    <p class="article-intro">ზაფხულის არდადეგები ბევრი მოზარდისთვის პირველი სამუშაო გამოცდილების მიღების დროა. სეზონური დასაქმება კაფეში, მაღაზიაში, სასტუმროში ან სასოფლო-სამეურნეო სამუშაოებზე შეიძლება ძალიან სასარგებლო იყოს. თუმცა კანონი არასრულწლოვანს განსაკუთრებულ დაცვას სთავაზობს — და ეს დაცვა მუშაობს მხოლოდ მაშინ, როდესაც ყველა მხარე იცნობს წესებს.</p>
+
+    <!-- ვინ არის არასრულწლოვანი -->
+    <h2 class="article-h2" id="s1">ვინ არის „არასრულწლოვანი"</h2>
+    <p class="article-p">საქართველოს კანონმდებლობით, არასრულწლოვანი არის <strong>18 წლამდე ასაკის ნებისმიერი პირი</strong>. სანამ პირს 18 წელი არ შეუსრულდება, მასზე ვრცელდება არასრულწლოვანთა დაცვის ყველა სპეციალური წესი — თავად მოზარდის განურჩევლად, მიიჩნევს თუ არა ამ წესებს „ზედმეტ ფორმალობად".</p>
+
+    <!-- მინიმალური ასაკი -->
+    <h2 class="article-h2" id="s2">მინიმალური ასაკი — როდიდან შეიძლება მუშაობა</h2>
+    <table class="article-table">
+      <thead><tr><th>ასაკი</th><th>დასაქმების პირობა</th></tr></thead>
+      <tbody>
+        <tr><td><strong>16 წლიდან</strong></td><td>შრომითი ქმედუნარიანობა სრულად. მოზარდს თავად შეუძლია დადოს ხელშეკრულება.</td></tr>
+        <tr><td><strong>16 წლამდე</strong></td><td>მხოლოდ მშობლის / კანონიერი წარმომადგენლის წერილობითი თანხმობით. არ უნდა ეწინააღმდეგებოდეს განათლების მიღებას.</td></tr>
+        <tr><td><strong>14 წლამდე</strong></td><td>მხოლოდ სპორტი, ხელოვნება, კულტურა ან სარეკლამო სამუშაო.</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box"><p><strong>მშობლის თანხმობა:</strong> 16 წლამდე მოზარდის დასაქმებისთვის მშობლის თანხმობა სასურველია წერილობით. ეს თანხმობა ძალაშია შემდგომი მსგავსი სამუშაოს მიმართაც.</p></div>
+
+    <!-- სად არის აკრძალული -->
+    <h2 class="article-h2" id="s3">სად არის აკრძალული არასრულწლოვნის დასაქმება</h2>
+    <p class="article-p">შრომის კოდექსი ზოგიერთ სფეროში არასრულწლოვნის დასაქმებას <strong>სრულად კრძალავს</strong>, ასაკისა და მშობლის თანხმობის მიუხედავად:</p>
+    <ul class="article-crosses">
+      <li><span class="cross">✘</span>სათამაშო ბიზნესი (აზარტული თამაშები)</li>
+      <li><span class="cross">✘</span>ღამის გასართობი დაწესებულება</li>
+      <li><span class="cross">✘</span>ეროტიკული და პორნოგრაფიული პროდუქციის დამზადება, გადაზიდვა ან რეალიზაცია</li>
+      <li><span class="cross">✘</span>ფარმაცევტული და ტოქსიკური ნივთიერებების დამზადება, გადაზიდვა და რეალიზაცია</li>
+      <li><span class="cross">✘</span>მძიმე, მავნე ან საშიშ პირობებიანი სამუშაო</li>
+    </ul>
+    <div class="warn-box"><p>ალკოჰოლის, თამბაქოს, ნიკოტინის შემცველი ნაწარმის მიწოდება არასრულწლოვნისთვის აკრძალულია. ასევე — დასაქმება ნებისმიერ ობიექტში, სადაც ხდება ალკოჰოლის, ეროტიკული პროდუქციის ან ტოქსიკური ნივთიერების წარმოება-რეალიზაცია.</p></div>
+
+    <!-- მძიმე სამუშაოები -->
+    <h2 class="article-h2" id="s4">მძიმე, მავნე და საშიში სამუშაოები</h2>
+    <h3 class="article-h3">ფიზიკური და გარემო პირობები</h3>
+    <ul class="article-ul">
+      <li>მუშაობა 5 მეტრზე მაღლა მიწის ზედაპირიდან</li>
+      <li>გარემო, სადაც საშუალო ტემპერატურა 30°C-ს აღემატება ან 6°C-ზე დაბალია</li>
+      <li>ხმაურის დონე 70 dB-ზე მეტი; მაღალი ვიბრაცია (14–16 წლისთვის ნებისმიერი ვიბრაცია აკრძალულია)</li>
+      <li>მუშაობა ბუნებრივი განათების გარეშე</li>
+      <li>მაღალი ძაბვის ან ატმოსფერული წნევის პირობებში</li>
+    </ul>
+    <h3 class="article-h3">ტვირთის აწევის ლიმიტი</h3>
+    <table class="article-table">
+      <thead><tr><th>სქესი</th><th>მაქსიმალური წონა</th></tr></thead>
+      <tbody>
+        <tr><td>ბიჭები</td><td><strong>10 კგ</strong></td></tr>
+        <tr><td>გოგოები</td><td><strong>4 კგ</strong></td></tr>
+      </tbody>
+    </table>
+    <h3 class="article-h3">აკრძალული საქმიანობის სფეროები</h3>
+    <ul class="article-crosses">
+      <li><span class="cross">✘</span>სამთო და მიწისქვეშა სამუშაოები, კარიერები</li>
+      <li><span class="cross">✘</span>მშენებლობა და ობიექტების დემონტაჟი</li>
+      <li><span class="cross">✘</span>ქიმიურ / ფეთქებად ნივთიერებებთან, იარაღთან მუშაობა</li>
+      <li><span class="cross">✘</span>მგზავრთა და ტვირთის გადაზიდვა</li>
+      <li><span class="cross">✘</span>ცხოველების სასაკლაო, შხამიან ცხოველებთან მუშაობა</li>
+      <li><span class="cross">✘</span>ალკოჰოლური სასმელების წარმოება / შენახვა</li>
+      <li><span class="cross">✘</span>ასფალტის, აზბესტის, ტყვიის, სილიციუმთან მუშაობა</li>
+    </ul>
+
+    <!-- სამუშაო დრო -->
+    <h2 class="article-h2" id="s5">სამუშაო დრო და დასვენება</h2>
+    <table class="article-table">
+      <thead><tr><th>ასაკი</th><th>მაქს. კვირაში</th><th>მაქს. დღეში</th></tr></thead>
+      <tbody>
+        <tr><td>16–18 წელი</td><td><strong>36 საათი</strong></td><td><strong>6 საათი</strong></td></tr>
+        <tr><td>14–16 წელი</td><td><strong>24 საათი</strong></td><td><strong>4 საათი</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="warn-box"><p><strong>ღამის სამუშაო (22:00–06:00) სრულად აკრძალულია</strong> ნებისმიერი ასაკის არასრულწლოვნისთვის, გამონაკლისის გარეშე.</p></div>
+    <h3 class="article-h3">შესვენება და დასვენება</h3>
+    <ul class="article-ul">
+      <li>6 საათზე მეტი სამუშაო დღისას — შესვენების უფლება</li>
+      <li>სამუშაო დღეებს შორის — მინ. 12 საათი უწყვეტი დასვენება</li>
+      <li>7-დღიანი პერიოდი — მინ. 24 საათი უწყვეტი დასვენება</li>
+      <li>ზეგანაკვეთური — მაქს. 2 სთ/დღე, 4 სთ/კვ; მხოლოდ მოზარდის თანხმობით</li>
+    </ul>
+
+    <!-- ხელშეკრულება -->
+    <h2 class="article-h2" id="s6">შრომითი ხელშეკრულება</h2>
+    <div class="info-box"><p><strong>წერილობითი ხელშეკრულება სავალდებულოა</strong> 1 თვეზე მეტი სამუშაოს შემთხვევაში. უფრო ხანმოკლე სამუშაოსთვისაც — წერილობითი ხელშეკრულება ყოველთვის უმჯობესია, რადგან ეს თქვენი მტკიცებულებაა.</p></div>
+    <h3 class="article-h3">ხელშეკრულება უნდა შეიცავდეს:</h3>
+    <ul class="article-checks">
+      <li><span class="check">✔</span>მხარეების მონაცემები</li>
+      <li><span class="check">✔</span>მუშაობის დაწყების თარიღი და ხანგრძლივობა</li>
+      <li><span class="check">✔</span>სამუშაო დრო და დასვენება</li>
+      <li><span class="check">✔</span>სამუშაო ადგილი</li>
+      <li><span class="check">✔</span>თანამდებობა და სამუშაოს აღწერა</li>
+      <li><span class="check">✔</span>ხელფასი და გადახდის წესი</li>
+      <li><span class="check">✔</span>ზეგანაკვეთურის ანაზღაურება</li>
+      <li><span class="check">✔</span>შვებულების ხანგრძლივობა</li>
+      <li><span class="check">✔</span>ხელშეკრულების შეწყვეტის წესი</li>
+    </ul>
+
+    <!-- ანაზღაურება -->
+    <h2 class="article-h2" id="s7">ანაზღაურება</h2>
+    <ul class="article-checks">
+      <li><span class="check">✔</span>ხელფასი — არანაკლებ <strong>თვეში ერთხელ</strong></li>
+      <li><span class="check">✔</span>გამოსაცდელ ვადაში შესრულებული სამუშაოც ანაზღაურებადია</li>
+      <li><span class="check">✔</span>საბოლოო ანგარიშსწორება — ხელშეკრულების შეწყვეტიდან <strong>7 კალენდარული დღის</strong> განმავლობაში</li>
+      <li><span class="check">✔</span>დაგვიანების შემთხვევაში — დამსაქმებელი ვალდებულია გადაიხადოს <strong>0.07%</strong> ყოველ დაგვიანებულ დღეზე</li>
+    </ul>
+    <div class="warn-box"><p><strong>„სტაჟირების" ბოროტად გამოყენება:</strong> ანაზღაურების გარეშე სტაჟირება — მაქს. 6 თვე; ანაზღაურებადი — მაქს. 1 წელი. დამსაქმებელს ეკრძალება სტაჟიორის გამოყენება ხელშეკრულების დადებისთვის თავის ასარიდებლად.</p></div>
+
+    <!-- უსაფრთხოება -->
+    <h2 class="article-h2" id="s8">უსაფრთხო და ჯანსაღი სამუშაო გარემო</h2>
+    <ul class="article-checks">
+      <li><span class="check">✔</span>მუშაობის დაწყებამდე — <strong>სამედიცინო შემოწმება</strong> (ყოველწლიურად 18 წლამდე)</li>
+      <li><span class="check">✔</span>ინსტრუქტაჟი და სწავლება</li>
+      <li><span class="check">✔</span>ასაკსა და ფიზიკურ განვითარებაზე მორგებული აღჭურვილობა</li>
+      <li><span class="check">✔</span>უფლება — უარი თქვა სამუშაოზე, რომელიც <strong>აშკარა საფრთხეს</strong> უქმნის სიცოცხლეს</li>
+      <li><span class="check">✔</span>ჯანმრთელობის გაუარესების შემთხვევაში — ხარჯები ანაზღაურდება <strong>დამსაქმებლის მიერ</strong></li>
+    </ul>
+
+    <!-- დისკრიმინაცია -->
+    <h2 class="article-h2" id="s9">დისკრიმინაციის აკრძალვა</h2>
+    <p class="article-p">შრომით ურთიერთობებში აკრძალულია ნებისმიერი დისკრიმინაცია — ასაკის, სქესის, წარმოშობის, შეზღუდული შესაძლებლობის ან სხვა ნიშნით. სამუშაო ადგილზე შევიწროება და სექსუალური შევიწროებაც დაუშვებელია.</p>
+    <div class="info-box"><p><strong>მტკიცების ტვირთი დამსაქმებელზეა:</strong> თუ მოზარდი დისკრიმინაციის მსხვერპლი გახდა, დავის შემთხვევაში სწორედ დამსაქმებელმა უნდა დაამტკიცოს, რომ დარღვევა არ მომხდარა.</p></div>
+
+    <!-- რისკები მოზარდისთვის -->
+    <h2 class="article-h2" id="s10">რა რისკები ემუქრება არასრულწლოვანს კანონის დაუცველად დასაქმებისას</h2>
+    <ul class="article-crosses">
+      <li><span class="cross">✘</span><strong>ხელფასის გადაუხდელობა</strong> — ხელშეკრულების გარეშე ძნელია დამტკიცება</li>
+      <li><span class="cross">✘</span><strong>ჯანმრთელობის ზიანი</strong> — საშიში სამუშაო, მძიმე ტვირთი</li>
+      <li><span class="cross">✘</span><strong>განათლების შეფერხება</strong> — გადაჭარბებული სამუშაო საათები</li>
+      <li><span class="cross">✘</span><strong>ექსპლუატაცია</strong> — ზეგანაკვეთური სამუშაო ანაზღაურების გარეშე</li>
+      <li><span class="cross">✘</span><strong>უეცარი გათავისუფლება</strong> ანაზღაურების გარეშე</li>
+      <li><span class="cross">✘</span><strong>ფსიქოლოგიური ზიანი</strong> — შევიწროება, არასათანადო მოპყრობა</li>
+    </ul>
+
+    <!-- რისკები კომპანიისთვის -->
+    <h2 class="article-h2" id="s11">რა რისკები ემუქრება დამსაქმებელ კომპანიას</h2>
+    <p class="article-p">შრომის ინსპექცია უფლებამოსილია დააკისროს ადმინისტრაციული სახდელი — <strong>200-დან 1 000 ლარამდე</strong> თითოეულ დარღვევაზე.</p>
+    <div class="warn-box">
+      <p>🔴 <strong>არასრულწლოვნის მიმართ დარღვევა</strong> — ჯარიმა ორმაგდება</p>
+      <p style="margin-top:8px;">🔴 <strong>დისკრიმინაცია / შევიწროება</strong> — ჯარიმა სამმაგდება</p>
+      <p style="margin-top:8px;">🔴 <strong>იძულებითი შრომა არასრულწლოვნის მიმართ</strong> — ჯარიმა ექვსმაგდება</p>
+      <p style="margin-top:8px;">🔴 <strong>იმავე დარღვევის გამეორება 1 წელში</strong> — ჯარიმა კვლავ ორმაგდება</p>
+    </div>
+    <div class="info-box"><p>ადმინისტრაციული ჯარიმა არ ათავისუფლებს სამოქალაქო პასუხისმგებლობისგან. სასამართლოს გზით შეიძლება დამატებით მოითხოვოს ზიანის ანაზღაურება. ზოგ შემთხვევაში — სისხლისსამართლებრივი პასუხისმგებლობაც.</p></div>
+
+    <!-- რჩევები მოზარდებს -->
+    <h2 class="article-h2" id="s12">რჩევები არასრულწლოვნებისთვის</h2>
+    <p class="article-p">სამუშაოს დაწყებამდე დარწმუნდი, რომ პასუხი „დიახ"-ია ყველა კითხვაზე:</p>
+    <ul class="article-checks">
+      <li><span class="check">✔</span>გაქვს წერილობითი შრომითი ხელშეკრულება ხელფასის, სამუშაო საათებისა და მოვალეობების ჩვენებით?</li>
+      <li><span class="check">✔</span>სამუშაო საათები შეესაბამება ლიმიტს (16–18 წ: 36 სთ/კვ; 14–16 წ: 24 სთ/კვ)?</li>
+      <li><span class="check">✔</span>არ მუშაობ ღამით (22:00–06:00)?</li>
+      <li><span class="check">✔</span>არ გევალება ლიმიტზე მძიმე ტვირთის აწევა (ბიჭი: 10 კგ; გოგო: 4 კგ)?</li>
+      <li><span class="check">✔</span>გაიარე სამედიცინო შემოწმება და ინსტრუქტაჟი?</li>
+      <li><span class="check">✔</span>იცი ვის მიმართო პრობლემის შემთხვევაში?</li>
+    </ul>
+
+    <!-- რჩევები მშობლებს -->
+    <h2 class="article-h2" id="s13">რჩევები მშობლებისთვის</h2>
+    <ul class="article-checks">
+      <li><span class="check">✔</span>ისაუბრეთ შვილთან ღიად — სამუშაო ადგილი, საათები, მოვალეობები</li>
+      <li><span class="check">✔</span>მოითხოვეთ ხელშეკრულების ასლი და გადახედეთ პირობებს</li>
+      <li><span class="check">✔</span>16 წლამდე შვილის შემთხვევაში — თქვენი <strong>წერილობითი თანხმობა</strong> სავალდებულოა</li>
+      <li><span class="check">✔</span>შეამოწმეთ, რომ სამუშაო არ ხელს უშლის სწავლას</li>
+      <li><span class="check">✔</span>შეინახეთ ხელშეკრულება, მიმოწერა, ხელფასის ამონაწერი</li>
+      <li><span class="check">✔</span>პრობლემის შემთხვევაში — <strong>სწრაფად</strong> მიმართეთ შრომის ინსპექციას</li>
+    </ul>
+
+    <!-- სად მიმართო -->
+    <h2 class="article-h2" id="s14">სად მიმართო დახმარებისთვის</h2>
+    <table class="article-table">
+      <thead><tr><th>ორგანო</th><th>რაში დაგეხმარება</th></tr></thead>
+      <tbody>
+        <tr><td><strong>შრომის ინსპექციის სამსახური</strong></td><td>სახელმწიფო ზედამხედველობა; დარღვევის შემთხვევაში ამოწმებს და აჯარიმებს</td></tr>
+        <tr><td><strong>საქართველოს პროფ. კავშირების გაერთიანება</strong></td><td>კონსულტაცია, ინტერესების დაცვა, მხარდაჭერა დავის დროს</td></tr>
+        <tr><td><strong>სახალხო დამცველი</strong></td><td>ბავშვის უფლებების დარღვევის შესწავლა</td></tr>
+        <tr><td><strong>იურიდიული დახმარების სამსახური</strong></td><td>უფასო იურიდიული კონსულტაცია</td></tr>
+        <tr><td><strong>სასამართლო</strong></td><td>სარჩელის შეტანა უფლების დარღვევის შემთხვევაში</td></tr>
+      </tbody>
+    </table>
+    <div class="warn-box"><p><strong>ნუ დააგვიანებთ:</strong> შრომითი დავის შემთხვევაში სასამართლოსთვის მიმართვის ხანდაზმულობის ვადა ზოგადად <strong>1 წელია</strong>. ხელშეკრულების შეწყვეტის გასაჩივრებას უფრო მოკლე ვადები აქვს — <strong>დაუყოვნებლივ</strong> მიმართეთ კონსულტაციისთვის.</p></div>
+
+    <div class="article-conclusion">
+      <p>სეზონური დასაქმება შეიძლება იყოს ღირებული გამოცდილება — მაგრამ მხოლოდ იმ შემთხვევაში, თუ ის კანონიერი და უსაფრთხოა. თუ გაქვთ კითხვა ან საჭიროებთ კონსულტაციას — დაგვიკავშირდით.</p>
+      <a href="kontaqti.html" class="btn-gold-sm">კონსულტაციის მიღება →</a>
+    </div>
+
+  </article>
+
+  <aside class="article-sidebar">
+    <div class="sidebar-toc">
+      <div class="sidebar-box-title">სარჩევი</div>
+      <a href="#s1" class="toc-item">ვინ არის „არასრულწლოვანი"</a>
+      <a href="#s2" class="toc-item">მინიმალური ასაკი</a>
+      <a href="#s3" class="toc-item">სად არის აკრძალული</a>
+      <a href="#s4" class="toc-item">მძიმე სამუშაოები</a>
+      <a href="#s5" class="toc-item">სამუშაო დრო</a>
+      <a href="#s6" class="toc-item">შრომითი ხელშეკრულება</a>
+      <a href="#s7" class="toc-item">ანაზღაურება</a>
+      <a href="#s8" class="toc-item">უსაფრთხოება</a>
+      <a href="#s9" class="toc-item">დისკრიმინაციის აკრძალვა</a>
+      <a href="#s10" class="toc-item">რისკები მოზარდისთვის</a>
+      <a href="#s11" class="toc-item">რისკები კომპანიისთვის</a>
+      <a href="#s12" class="toc-item">რჩევები მოზარდებს</a>
+      <a href="#s13" class="toc-item">რჩევები მშობლებს</a>
+      <a href="#s14" class="toc-item">სად მიმართო</a>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">სხვა სტატიები</div>
+      <ul class="sidebar-related">
+        <li><a href="article-1.html">რა უფლებები აქვს დასაქმებულს გათავისუფლებისას?</a></li>
+        <li><a href="article-3.html">ხელფასი არ გიხდიან — რა გააკეთო?</a></li>
+        <li><a href="article-2.html">შრომითი ხელშეკრულება — სწორი შედგენა</a></li>
+        <li><a href="article-5.html">შვებულებაზე უარის თქმა შეიძლება?</a></li>
+        <li><a href="article-9.html">შრომითი უსაფრთხოება კომპანიაში</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-box sidebar-cta">
+      <div class="sidebar-box-title">კონსულტაცია</div>
+      <p class="sidebar-cta-text">გჭირდებათ დახმარება არასრულწლოვნის დასაქმებასთან დაკავშირებით?</p>
+      <a href="kontaqti.html" class="btn-gold-sm">დამიკავშირდი →</a>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-bottom-simple">
+    <a href="index.html" class="footer-logo">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><path d="M16 3L4 12v2h2l10-7 10 7h2v-2L16 3z" fill="#B89A52" opacity=".9"/><rect x="15" y="12" width="2" height="16" fill="#B89A52" opacity=".6"/><path d="M6 15l-4 8h8L6 15zm20 0l-4 8h8l-4-8z" fill="#B89A52" opacity=".7"/><rect x="10" y="28" width="12" height="1.5" rx=".75" fill="#B89A52"/></svg>
+      <span class="footer-logo-text">LabourLaw.ge</span>
+    </a>
+    <span class="footer-copy">© 2024 LabourLaw.ge. ყველა უფლება დაცულია.</span>
+  </div>
+</footer>
+
+</body>
+</html>
