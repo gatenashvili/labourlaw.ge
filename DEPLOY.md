@@ -22,8 +22,9 @@
    ბრაუზერში ჩაწერე კოდი, რომელსაც ტერმინალი გაჩვენებს.
 3. რეპოზიტორიის შექმნა და ატვირთვა:
    ```
-   gh repo create labourlaw-ge --private --source=. --remote=origin --push
+   gh repo create labourlaw.ge --private --source=. --remote=origin --push
    ```
+   (რეპოზიტორია GitHub-ზე: `gatenashvili/labourlaw.ge`)
 
 ---
 
@@ -43,20 +44,29 @@
    Cloudflare-ის Dashboard-ში დომენი „Active" გახდება, როცა მზად იქნება.
 
 ### 2.3 Pages პროექტის შექმნა
-1. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-2. დააკავშირე GitHub ანგარიში და აირჩიე რეპოზიტორია `labourlaw-ge`.
-3. პარამეტრები:
+1. Cloudflare Dashboard → **Workers & Pages** → **Create application**.
+2. ახალი ინტერფეისი ჯერ Workers-ის ვარიანტებს გაჩვენებს. ბარათის ქვეშ დააჭირე
+   **Continue to Pages** („Need to use the legacy Pages workflow?").
+3. **Import an existing Git repository** → **Get started** → GitHub.
+4. დააკავშირე GitHub ანგარიში და აირჩიე რეპოზიტორია `labourlaw.ge` → **Begin setup**.
+5. პარამეტრები:
+   - Project name: `labourlaw-ge`
    - Production branch: `main`
    - Framework preset: `None`
    - Build command: **ცარიელი** (არაფერი)
-   - Build output directory: `/` (ან ცარიელი)
-4. **Save and Deploy**. 1 წუთში მიიღებ მისამართს, მაგ. `labourlaw-ge.pages.dev`.
+   - Build output directory: **ცარიელი**
+6. **Save and Deploy**. 1 წუთში მიიღებ მისამართს `labourlaw-ge.pages.dev`.
 
 ### 2.4 დომენის მიბმა Pages-ზე
 1. Pages პროექტი → **Custom domains** → **Set up a custom domain** → `labourlaw.ge` → Activate.
 2. გაიმეორე `www.labourlaw.ge`-სთვისაც.
-   Cloudflare DNS ჩანაწერებს ავტომატურად შექმნის (რადგან დომენი უკვე Cloudflare-შია).
-3. სასურველია: Websites → labourlaw.ge → **SSL/TLS** → **Edge Certificates** → **Always Use HTTPS: On**.
+3. თუ სტატუსი „Verifying"-ზე ჩერდება და **Complete DNS setup** უწერია, DNS-ში ძველი
+   (Hostinger-ის) ჩანაწერები უშლის ხელს. **Domains → labourlaw.ge → DNS → Records**:
+   - წაშალე `@`-ის და `www`-ის **A** / **AAAA** ჩანაწერები (MX და TXT არ შეეხო).
+   - დაამატე **CNAME** `@` → `labourlaw-ge.pages.dev` (Proxy ჩართული).
+   - დაამატე **CNAME** `www` → `labourlaw-ge.pages.dev` (Proxy ჩართული).
+   - Custom domains-ში `⋯` → **Retry**. რამდენიმე წუთში ორივე „Active" გახდება.
+4. სასურველია: Domains → labourlaw.ge → **SSL/TLS** → **Edge Certificates** → **Always Use HTTPS: On**.
 
 ---
 
